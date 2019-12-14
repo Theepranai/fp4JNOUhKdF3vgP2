@@ -1,0 +1,37 @@
+﻿<div>
+    <ul class="unstyled list-icons clearfix" ng-if="node">
+        <li ng-repeat="n in node" class="float-left">
+            <ul class="unstyled list-icons" id="div{{n.id}}">
+                <li>
+                    <img ng-src="{{n.thumbnail}}" class="img-thumbnail" />
+                </li>
+                <li>
+                    <i class="icon icon-delete red hover-show pull-right" ng-click="removePicture(n.id)"></i>
+
+                    <i class="icon {{n.icon}} hover-hide"></i>
+                    {{n.name}}
+
+                </li>
+
+            </ul>
+        </li>
+    </ul>
+    <ul class="unstyled list-icons" ng-if="!node">
+        <li>
+            <img ng-src="/images/DefaultImage.png" class="img-thumbnail" />
+        </li>
+        <li>
+            <i class="icon icon-picture hover-hide"></i>
+            no image
+
+        </li>
+    </ul>
+    <ul class="unstyled list-icons clearfix">
+        <li>
+            <i class="icon icon-add blue"></i>
+            <a href="javascript:;" ng-click="openMediaPicker()" prevent-default>
+                Select
+            </a>
+        </li>
+    </ul>
+</div>

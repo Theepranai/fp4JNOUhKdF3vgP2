@@ -1,0 +1,108 @@
+﻿<div ng-controller="branches.car-price.controller">
+
+    <umb-load-indicator ng-if="loading"></umb-load-indicator>
+
+    <form name="contentForm"
+          ng-submit="save()"
+          novalidate
+          val-form-manager>
+
+        <umb-editor-view>
+
+            <umb-editor-header name="name"
+                               name-locked="true"
+                               hide-icon="true"
+                               hide-description="true"
+                               hide-alias="true">
+            </umb-editor-header>
+
+            <umb-editor-container class="form-horizontal">
+
+                <table class="table table-striped" cellspacing="0" cellpadding="5" ng-hide="model">
+                    <thead>
+                        <tr>
+                            <th class="firstCol"><a ng-click="data.sortBy('A_ID')">#</a></th>
+                            <th><a ng-click="data.sortBy('numdate')">Numdate</a></th>
+                            <th><a ng-click="data.sortBy('start_date')">start_date</a></th>
+                            <th><a ng-click="data.sortBy('end_date')">end_date</a></th>
+                            <th><a ng-click="data.sortBy('price_cost')">price_cost</a></th>
+                            <th><a ng-click="data.sortBy('price')">price</a></th>
+                            <th><a ng-click="data.sortBy('price_code')">price_code</a></th>
+                            <th><a ng-click="data.sortBy('paynow')">paynow</a></th>
+                            <th><a ng-click="data.sortBy('paynow_type')">paynow_type</a></th>
+                            <th class="small-col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in items">
+                            <td></td>
+                            <td>{{ item.numdate }}</td>
+                            <td>{{ item.start_date }}</td>
+                            <td>{{ item.end_date }}</td>
+                            <td>{{ item.price_cost }}</td>
+                            <td>{{ item.price }}</td>
+                            <td>{{ item.price_code }}</td>
+                            <td>{{ item.paynow }}</td>
+                            <td>{{ item.paynow_type }}</td>
+                            <td><a ng-click="edit(item)">Edit</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div ng-show="model">
+                    
+                    <h3>Add / Edit price</h3>
+                    <hr />
+                    <umb-control-group label="numdate">
+                        <input type="text" class="umb-editor umb-textstring" ng-model="model.numdate" />
+                    </umb-control-group>
+
+                    <umb-control-group label="start_date">
+                        <input type="text" class="umb-editor umb-textstring" ng-model="model.start_date" />
+                    </umb-control-group>
+
+                    <umb-control-group label="end_date">
+                        <input type="text" class="umb-editor umb-textstring" ng-model="model.end_date" />
+                    </umb-control-group>
+                    <umb-control-group label="price_cost">
+                        <input type="text" class="umb-editor umb-textstring" ng-model="model.price_cost" />
+                    </umb-control-group>
+                    <umb-control-group label="price">
+                        <input type="text" class="umb-editor umb-textstring" ng-model="model.price" />
+                    </umb-control-group>
+                    <umb-control-group label="price_code">
+                        <input type="text" class="umb-editor umb-textstring" ng-model="model.price_code" />
+                    </umb-control-group>
+                    <umb-control-group label="paynow">
+                        <input type="text" class="umb-editor umb-textstring" ng-model="model.paynow" />
+                    </umb-control-group>
+                    <umb-control-group label="paynow_type">
+                        <select ng-model="model.paynow_type" required>
+                            <option value="percent" selected>percent</option>
+                            <option value="flatrate">flatrate</option>
+                        </select>
+                    </umb-control-group>
+                </div>
+
+            </umb-editor-container>
+
+            <umb-editor-footer>
+
+                <umb-editor-footer-content-right>
+
+                    <a class="btn umb-button__button btn-info umb-button--" ng-click="cancel()">Back</a>
+
+                    <button class="btn umb-button__button btn-success umb-button--" type="submit" ng-show="model" >Save</button>
+
+                    <button class="btn umb-button__button btn-success umb-button--" type="button" ng-click="edit(addnew)" ng-hide="model">Add new</button>
+
+
+                </umb-editor-footer-content-right>
+
+            </umb-editor-footer>
+
+        </umb-editor-view>
+
+    </form>
+
+</div>

@@ -1,0 +1,55 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using Umbraco.Web;
+@{
+    var site = Umbraco.TypedContentAtRoot().FirstOrDefault();
+
+    var selection = site.Children.Where(x => x.IsVisible());
+    var logo = Umbraco.TypedMedia(site.GetPropertyValue<int>
+                    ("SiteLogo"));
+}
+
+<div class="footerbgblack">
+    <div class="container">
+
+        <div class="col-md-3">
+            <span class="ftitleblack">Let's socialize</span>
+            <div class="scont">
+                <a class="social1b" href="#"><img alt="" src="images/icon-facebook.png"></a>
+                <a class="social2b" href="#"><img alt="" src="images/icon-twitter.png"></a>
+                <a class="social3b" href="#"><img alt="" src="images/icon-gplus.png"></a>
+                <a class="social4b" href="#"><img alt="" src="images/icon-youtube.png"></a>
+                <br><br><br>
+                <a href="/"><img src="@logo.Url" alt="@site.GetPropertyValue("sitename")" width="100%"/></a>
+                <span class="grey2">
+                    © 2019  |  <a href="#">Privacy Policy</a><br>
+                    All Rights Reserved
+                </span>
+                <br><br>
+
+            </div>
+        </div>
+        <!-- End of column 1-->
+
+        <div class="col-md-3">
+            @Html.Raw(site.GetPropertyValue<string>("footercolumn2"))
+</div>
+        <!-- End of column 2-->
+
+        <div class="col-md-3">
+            @Html.Raw(site.GetPropertyValue<string>("footercolumn3"))
+</div>
+        <!-- End of column 3-->
+
+        <div class="col-md-3 grey">
+            <span class="ftitleblack">Newsletter</span>
+            <div class="relative">
+                <input class="form-control fccustom2black" id="exampleInputEmail1" type="email" placeholder="Enter email">
+                <button class="btn btn-default btncustom" type="submit">Submit<img alt="" src="images/arrow.png"></button>
+            </div>
+            <br><br>
+            @Html.Raw(site.GetPropertyValue<string>("footercolumn4"))
+        </div>
+        <!-- End of column 4-->
+
+    </div>
+</div>

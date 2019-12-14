@@ -1,0 +1,305 @@
+﻿@inherits UmbracoViewPage<ChicCarrental_Models.PageModel.Step3Model>
+@{
+    var c = Model.Car;
+    var b = Model.PickupBranch;
+    var d = Model.DropoffBranch;
+    var extrx = Model.ExtraOption;
+    var insur = Model.Insurance;
+    Layout = "Master.cshtml";
+}
+@section styles{
+
+    <link href="~/assets/css/style01.css" rel="stylesheet" />
+}
+<div class="container breadcrub">
+    <div>
+        <p></p>
+    </div>
+    <div class="clearfix"></div>
+    <div class="brlines"></div>
+</div>
+
+<div class="container">
+    <div class="container mt25 offset-0">
+        <div class="col-md-8 pagecontainer2 offset-0">
+            <form action="/booking/step4" method="post">
+
+                <input type="hidden" name="pickuploc" value="@Request["pickuploc"]" />
+                <input type="hidden" name="pickupdate" value="@Request["pickupdate"]" />
+                <input type="hidden" name="pickuptime" value="@Request["pickuptime"]" />
+                <input type="hidden" name="dropoffloc" value="@Request["dropoffloc"]" />
+                <input type="hidden" name="dropoffdate" value="@Request["dropoffdate"]" />
+                <input type="hidden" name="dropofftime" value="@Request["dropofftime"]" />
+                <input type="hidden" name="car_id" value="@c.A_ID" />
+                <input type="hidden" name="price_id" value="@c.price.price_id" />
+
+                @if (extrx != null)
+                {
+                    foreach (var x in extrx)
+                    {
+                        <input type="hidden" name="extra[]" value="@x.A_ID">
+                    }
+                }
+                <div class="padding30 grey">
+                    <span class="size16px bold dark left">Your contact information </span>
+                    <div class="roundstep active right">1</div>
+                    <div class="clearfix"></div>
+                    <div class="line4"></div>
+                    We will never sell, share or distribute your personal information. Read our <a href="" class="lblue">privacy policy</a>. <br><br>
+
+                    <div class="col-md-4 textright">
+                        <div class="margtop15"><span class="dark">Title:</span><span class="red">*</span></div>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-control mySelectBoxClass" name="title[]">
+                            <option value="Mr.">Mr.</option>
+                            <option value="Ms.">Ms.</option>
+                            <option value="Mrs.">Mrs.</option>
+                            <option value="Miss">Miss</option>
+                        </select>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+
+                    <div class="col-md-4 textright">
+                        <div class="margtop15"><span class="dark">Name:</span><span class="red">*</span></div>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="name[]" required>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+
+                    <div class="col-md-4 textright">
+                        <div class="margtop15"><span class="dark">Last Name:</span><span class="red">*</span></div>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="lname[]" required>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+
+                    <div class="col-md-4 textright">
+                        <div class="margtop15"><span class="dark">Email:</span><span class="red">*</span></div>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="email[]" required>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+
+                    <div class="col-md-4 textright">
+                        <div class="margtop15"><span class="dark">Phone number:</span><span class="red">*</span></div>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="phone[]" required>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+
+                    <div class="col-md-4 textright">
+                        <div class="margtop15"><span class="dark">License number:</span><span class="red">*</span></div>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="license[]" required>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <br>
+                    <br>
+                    <span class="size16px bold dark left">Flight no.?</span>
+                    <div class="roundstep right">2</div>
+                    <div class="clearfix"></div>
+                    <div class="line4"></div>
+                    Flight number to track your arrival.<br>
+
+
+                    <div class="col-md-4 textright">
+                        <div class="mt15"><span class="dark">Flight number:</span><span class="red">*</span></div>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control margtop10" placeholder="">
+                    </div>
+                    <div class="col-md-4 textleft">
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <br>
+                    <br>
+                    <span class="size16px bold dark left">Review and book your trip</span>
+                    <div class="roundstep right">3</div>
+                    <div class="clearfix"></div>
+                    <div class="line4"></div>
+
+                    <div class="alert alert-info">
+                        Important information about your booking:<br>
+                        <p class="size12">• This reservation is non-refundable and cannot be changed or canceled.</p>
+                    </div>
+                    By selecting to complete this booking I acknowledge that I have read and accept the <a href="#" class="clblue">
+                        rules &amp;
+                        restrictions
+                    </a> <a href="#" class="clblue">terms &amp; conditions</a> , and <a href="#" class="clblue">privacy policy</a>.	<br>
+
+                    <button type="submit" class="bluebtn margtop20" name="pay" value="now">Pay now save 30%</button>
+
+                    <button type="submit" class="greenbtn margtop20" name="pay" value="later">Pay later</button>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="col-md-4">
+            <div class="pagecontainer2 paymentbox grey">
+                <div class="padding30">
+                    <span class="opensans size13  bold dark">Pickup location</span>
+                    <p>@Model.PickupBranch.Branch_Name</p>
+                    <div class="clearfix pbottom15"></div>
+                    <span class="opensans size13 bold dark">Dropoff location</span>
+                    <p>@Model.DropoffBranch.Branch_Name</p>
+                    <div class="clearfix pbottom15"></div>
+                    <div class="w50percent">
+                        <div class="wh90percent textleft">
+                            <span class="opensans size13 bold dark">Pick up date</span>
+                            <p>@Request["pickupdate"]</p>
+                        </div>
+                    </div>
+
+                    <div class="w50percentlast">
+                        <div class="wh90percent textleft right">
+                            <span class="opensans size13 bold dark">HOUR</span>
+                            <p>@Request["pickuptime"]</p>
+                        </div>
+                    </div>
+
+                    <div class="clearfix pbottom15"></div>
+
+                    <div class="w50percent">
+                        <div class="wh90percent textleft">
+                            <span class="opensans size13 bold dark">Dropoff date</span>
+                            <p>@Request["dropoffdate"]</p>
+                        </div>
+                    </div>
+
+                    <div class="w50percentlast">
+                        <div class="wh90percent textleft right">
+                            <span class="opensans size13 bold dark">HOUR</span>
+                            <p>@Request["dropofftime"]</p>
+                        </div>
+                    </div>
+
+                    <div class="clearfix pbottom15"></div>
+                    <div class="line2"></div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="hpadding30 margtop30">
+
+                        <div class="wh30percent left">
+                            @{
+                                var Image = Umbraco.Media(c.image);
+                            }
+                            <img src="@Image.Url" class="fwimg" alt="">
+                        </div>
+
+                        <div class="wh60percent right">
+                            <span class="size16 bold dark">@Model.Car.name</span><br>
+                            <span class="size13 bold grey">@Model.Car.feature</span><br>
+                            <div class="fdash mt10"></div><br>
+
+                            <table class="wh100percent size12 bold grey2">
+                                <tbody>
+                                    <tr>
+                                        <td>@Model.NumDate days</td>
+                                        <td class="textright">฿@(Model.TotalCarPrice.ToString("N2"))</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                            <div class="fdash mt10"></div>
+                            <br>
+
+                        </div>
+                        <div class="clearfix"></div>
+                        <table class="wh100percent size12 bold grey2">
+                            @foreach (var xt in Model.ExtraOption)
+                            {
+                                <tr>
+                                    <td>@xt.Name</td>
+                                    <td class="textright">@((xt.Price*Model.NumDate).ToString("N2"))</td>
+                                </tr>
+                            }
+                        </table>
+                        <br>
+                    </div>
+                    <div class="line3"></div>
+                    <div class="padding30">
+                        <span class="left size14 dark">Total:</span>
+                        <span class="right lred2 bold size18">฿@(Model.TotalPrice.ToString("N2"))</span>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div><br>
+
+            <div class="pagecontainer2 needassistancebox">
+                <div class="cpadding1">
+                    <span class="icon-help"></span>
+                    <h3 class="opensans">Need Assistance?</h3>
+                    <p class="size14 grey">Our team is 24/7 at your service to help you with your booking issues or answer any related questions</p>
+                    <p class="opensans size30 lblue xslim">1-866-599-6674</p>
+                </div>
+            </div><br>
+
+            <div class="pagecontainer2 loginbox">
+                <div class="cpadding1">
+                    <span class="icon-lockk"></span>
+                    <h3 class="opensans">Log in</h3>
+                    <input type="text" class="form-control logpadding" placeholder="Username">
+                    <br>
+                    <input type="text" class="form-control logpadding" placeholder="Password">
+                    <div class="margtop20">
+                        <div class="left">
+                            <div class="checkbox padding0">
+                                <label>
+                                    <input type="checkbox">Remember
+                                </label>
+                            </div>
+                            <a href="#" class="greylink">Lost password?</a><br>
+                        </div>
+                        <div class="right">
+                            <button class="btn-search5" type="submit" onclick="errorMessage()">Login</button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div><br>
+                </div>
+            </div><br>
+
+        </div>
+        <!-- END OF RIGHT CONTENT -->
+
+
+    </div>
+
+
+</div>
+
+@Html.Partial("~/views/partials/footer.cshtml")
+
+@section scripts{
+    <script>
+
+        $(function () {
+            $('#qloginbtn').click(function () {
+                $('#qloginform').show();
+            })
+            $('#diffpickbtn').click(function () {
+                if ($(this).is(":checked")) {
+                    $('#diffpickform').show();
+                } else {
+                    $('#diffpickform').hide();
+                }
+            })
+        });
+
+    </script>
+}

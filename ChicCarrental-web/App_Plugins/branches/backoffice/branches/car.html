@@ -1,0 +1,57 @@
+﻿<div ng-controller="branches.car.controller">
+
+    <umb-load-indicator ng-if="loading"></umb-load-indicator>
+
+    <form name="contentForm"
+          ng-submit="save()"
+          novalidate
+          val-form-manager>
+
+        <umb-editor-view>
+
+            <umb-editor-header name="items[0].Branch_Name"
+                               name-locked="true"
+                               hide-icon="true"
+                               hide-description="true"
+                               hide-alias="true">
+            </umb-editor-header>
+
+            <umb-editor-container class="form-horizontal">
+
+                <table class="table table-striped" cellspacing="0" cellpadding="5">
+                    <thead>
+                        <tr>
+                            <th class="firstCol"><a ng-click="data.sortBy('A_ID')">#</a></th>
+                            <th class="big-col"><a ng-click="data.sortBy('name')">Name</a></th>
+                            <th class="small-col"></th>
+                            <th class="small-col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in items">
+                            <td>{{ item.A_ID }}</td>
+                            <td>{{ item.name }}</td>
+                            <td><a ng-click="openEditDialog(item)">Edit</a></td>
+                            <td><a ng-href="#/branches/branches/car-price/{{item.A_ID}}">Price</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </umb-editor-container>
+
+            <umb-editor-footer>
+
+                <umb-editor-footer-content-right>
+
+                    <button class="umb-era-button -green" type="button" ng-click="openEditDialog(addnew)">Add new</button>
+
+                </umb-editor-footer-content-right>
+
+            </umb-editor-footer>
+
+        </umb-editor-view>
+
+    </form>
+
+    
+</div>

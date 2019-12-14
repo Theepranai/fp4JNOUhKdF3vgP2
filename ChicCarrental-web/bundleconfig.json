@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "css/select2.min.min.css",
+    "inputFiles": [
+      "css/select2.min.css"
+    ]
+  },
+  {
+    "outputFileName": "css/select2.min.css",
+    "inputFiles": [
+      "css/select2.css"
+    ]
+  }
+]

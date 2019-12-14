@@ -1,0 +1,275 @@
+﻿@inherits UmbracoViewPage<ChicCarrental_Models.PageModel.Step4Model>
+@using System.Security.Cryptography;
+@using System.Text;
+@{
+    Layout = "Master.cshtml";
+    var trans = Model.Transection;
+}
+
+<div class="container breadcrub">
+    <div>
+        <p></p>
+    </div>
+    <div class="clearfix"></div>
+    <div class="brlines"></div>
+</div>
+
+@functions {
+    private static string hmacSHA256(String data, String key)
+    {
+        using (HMACSHA256 hmac = new HMACSHA256(Encoding.ASCII.GetBytes(key)))
+        {
+            byte[] a2 = hmac.ComputeHash(Encoding.ASCII.GetBytes(data));
+            string a3 = Convert.ToBase64String(a2).ToString().Replace("+", "-").Replace("/", "_").Replace("=", "");
+            return a3;
+        }
+    }
+    private static string HMACSHA1(string dataToSign, string key)
+    {
+        Byte[] secretBytes = UTF8Encoding.UTF8.GetBytes(key);
+        HMACSHA1 hmac = new HMACSHA1(secretBytes);
+
+        Byte[] dataBytes = UTF8Encoding.UTF8.GetBytes(dataToSign);
+        Byte[] calcHash = hmac.ComputeHash(dataBytes);
+        String calcHashString = Convert.ToBase64String(calcHash);
+        return calcHashString;
+    }
+    private static string HashString(string StringToHash, string HachKey)
+    {
+        System.Text.UTF8Encoding myEncoder = new System.Text.UTF8Encoding();
+        byte[] Key = myEncoder.GetBytes(HachKey);
+        byte[] Text = myEncoder.GetBytes(StringToHash);
+        System.Security.Cryptography.HMACSHA1 myHMACSHA1 = new System.Security.Cryptography.HMACSHA1(Key);
+        byte[] HashCode = myHMACSHA1.ComputeHash(Text);
+        string hash = BitConverter.ToString(HashCode).Replace("-", "");
+        return hash.ToLower();
+    }
+    public static string hash_hmac_sha1(string message, string key)
+    {
+        byte[] keyByte = UTF8Encoding.UTF8.GetBytes(key);
+
+        HMACSHA1 hmacsha1 = new HMACSHA1(keyByte);
+
+        byte[] messageBytes = UTF8Encoding.UTF8.GetBytes(message);
+
+        byte[] hashmessage = hmacsha1.ComputeHash(messageBytes);
+
+        string calcHashString = ByteToString(hashmessage);
+        return calcHashString.ToLower();
+    }
+
+    /*converts byte to encrypted string*/
+    public static string ByteToString(byte[] buff)
+    {
+        string sbinary = "";
+
+        for (int i = 0; i < buff.Length; i++)
+        {
+            sbinary += buff[i].ToString("X2"); // hex format
+        }
+        return (sbinary);
+    }
+}
+
+@if (trans.Payment_Type == "0" && trans.Status == "0")
+{
+
+    //Merchant's account information
+    var merchant_id = "JT01";           //Get MerchantID when opening account with 2C2P
+    var secret_key = "7jYcp4FxFdf0";    //Get SecretKey from 2C2P PGW Dashboard
+                                        //secret_key = "TestMerSec";
+                                        //Transaction information
+    var payment_description = trans.ID;
+    var order_id = Convert.ToInt32(string.Format("10{0}", trans.ID.ToString("D8")));
+    var currency = "702";
+    var amount = "000000002500"; //trans.Total_Price;
+
+    //Request information
+    var version = "7.2";
+    var payment_url = "https://demo2.2c2p.com/2C2PFrontEnd/RedirectV3/payment";
+    var result_url_1 = string.Format("http://localhost:50160/booking/result?result={0}&payment=2c2p", trans.ID);
+
+    //Construct signature string
+
+    var hparam = string.Format("{0}{1}{2}{3}{4}{5}{6}", version, merchant_id, payment_description, order_id, currency, amount, result_url_1);
+    // hparam = "3.0JT01SInvoice1701181609031000.00";
+    //var hash_value = HMACSHA1(hparam, secret_key);  //Compute hash valuenew
+    //var hashdll = SinaptIQPKCS7.PKCS7
+    string hash_value = hash_hmac_sha1(hparam, secret_key);
+
+    <form id="myform" method="post" action="@payment_url" style="display:none">
+        <input type="hidden" name="version" value="@version" />
+        <input type="hidden" name="merchant_id" value="@merchant_id" />
+        <input type="hidden" name="currency" value="@currency" />
+        <input type="hidden" name="result_url_1" value="@result_url_1" />
+        <input type="hidden" name="hash_value" value="@hash_value" />
+        <input type="hidden" name="payment_description" value="@payment_description" readonly /><br />
+        <input type="hidden" name="order_id" value="@order_id" readonly /><br />
+        <input type="hidden" name="amount" value="@amount" readonly /><br />
+        <input type="submit" name="submit" value="Confirm" />
+    </form>
+    <script type="text/javascript">
+        document.getElementById('myform').submit.click();
+    </script>
+}
+@{
+
+    Layout = "Master.cshtml";
+}
+
+@if (trans.Status == "1")
+{
+    <div class="container">
+        <div class="container mt25 offset-0">
+            <div class="col-md-8 pagecontainer2 offset-0">
+
+                <div class="padding30 grey">
+                    <h1>Thank you.</h1>
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+                <div class="pagecontainer2 paymentbox grey">
+                    <div class="padding30">
+                        <span class="opensans size13  bold dark">Pickup location</span>
+                        <p>Bangkok Downtown (BK1)</p>
+                        <div class="clearfix pbottom15"></div>
+                        <span class="opensans size13 bold dark">Dropoff location</span>
+                        <p>Bangkok Downtown (BK1)</p>
+                        <div class="clearfix pbottom15"></div>
+                        <div class="w50percent">
+                            <div class="wh90percent textleft">
+                                <span class="opensans size13 bold dark">Pick up date</span>
+                                <p>2019-11-24</p>
+                            </div>
+                        </div>
+
+                        <div class="w50percentlast">
+                            <div class="wh90percent textleft right">
+                                <span class="opensans size13 bold dark">HOUR</span>
+                                <p>10:30 AM</p>
+                            </div>
+                        </div>
+
+                        <div class="clearfix pbottom15"></div>
+
+                        <div class="w50percent">
+                            <div class="wh90percent textleft">
+                                <span class="opensans size13 bold dark">Dropoff date</span>
+                                <p>2019-11-26</p>
+                            </div>
+                        </div>
+
+                        <div class="w50percentlast">
+                            <div class="wh90percent textleft right">
+                                <span class="opensans size13 bold dark">HOUR</span>
+                                <p>10:30 AM</p>
+                            </div>
+                        </div>
+
+                        <div class="clearfix pbottom15"></div>
+                        <div class="line2"></div>
+
+                        <div class="hpadding30 margtop30">
+
+                            <div class="wh30percent left">
+                                <img src="updates/update1/img/cars/car02.jpg" class="fwimg" alt="">
+                            </div>
+
+                            <div class="wh60percent right">
+                                <span class="size16 bold dark"> Brio Amaze 1.2 Auto</span><br>
+                                <span class="size13 bold grey">Honda</span><br>
+                                <div class="fdash mt10"></div><br>
+
+                                <table class="wh100percent size12 bold grey2">
+                                    <tbody>
+                                        <tr>
+                                            <td>2 days</td>
+                                            <td class="textright">THB 110.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vat</td>
+                                            <td class="textright">THB 7.70</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="fdash mt10"></div><br>
+
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <br>
+
+
+                        </div>
+                        <div class="line3"></div>
+                        <div class="padding30">
+                            <span class="left size14 dark">Total:</span>
+                            <span class="right lred2 bold size18">THB 117.70</span>
+                            <div class="clearfix"></div>
+                        </div>
+
+
+                    </div>
+                </div><br>
+
+                <div class="pagecontainer2 needassistancebox">
+                    <div class="cpadding1">
+                        <span class="icon-help"></span>
+                        <h3 class="opensans">Need Assistance?</h3>
+                        <p class="size14 grey">Our team is 24/7 at your service to help you with your booking issues or answer any related questions</p>
+                        <p class="opensans size30 lblue xslim">1-866-599-6674</p>
+                    </div>
+                </div><br>
+
+                <div class="pagecontainer2 loginbox">
+                    <div class="cpadding1">
+                        <span class="icon-lockk"></span>
+                        <h3 class="opensans">Log in</h3>
+                        <input type="text" class="form-control logpadding" placeholder="Username">
+                        <br>
+                        <input type="text" class="form-control logpadding" placeholder="Password">
+                        <div class="margtop20">
+                            <div class="left">
+                                <div class="checkbox padding0">
+                                    <label>
+                                        <input type="checkbox">Remember
+                                    </label>
+                                </div>
+                                <a href="#" class="greylink">Lost password?</a><br>
+                            </div>
+                            <div class="right">
+                                <button class="btn-search5" type="submit" onclick="errorMessage()">Login</button>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div><br>
+                    </div>
+                </div><br>
+
+            </div>
+            <!-- END OF RIGHT CONTENT -->
+
+
+        </div>
+
+
+    </div>
+
+}
+else
+{
+
+    <section class="row">
+        <div class="jumbotron">
+            <h1>Payment Fail</h1>
+            <p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
+            <p>To see the difference between static and fixed top navbars, just scroll.</p>
+            <p>
+                <a class="btn btn-lg btn-primary" href="#" role="button">< back</a>
+            </p>
+        </div>
+    </section>
+}
+
+@Html.Partial("~/views/partials/footer.cshtml")

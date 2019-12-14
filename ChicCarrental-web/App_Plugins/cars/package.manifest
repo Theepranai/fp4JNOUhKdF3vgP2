@@ -1,0 +1,8 @@
+﻿{
+    javascript: [
+        "/App_Plugins/cars/scripts/cars.controller.js",
+    ],
+    css: [
+
+    ]
+}

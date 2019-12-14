@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ChicRentalDB" Class="DBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=203.151.210.116;Initial Catalog=ChicRentalDB;User ID=chic" SettingsObjectName="ChicCarrental_Models.Properties.Settings" SettingsPropertyName="ChicRentalDBConnectionString1" Provider="System.Data.SqlClient" />
+  <Function Name="dbo.sp_katon" Method="sp_katon">
+    <ElementType Name="sp_katonResult">
+      <Column Name="price_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="car_branch_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="numdate" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="start_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="end_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="price_cost" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="price" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="price_code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="paynow" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="paynow_type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="add_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

@@ -1,0 +1,65 @@
+﻿@inherits UmbracoTemplatePage
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+    Layout = null;
+    var site = Umbraco.TypedContentAtRoot().FirstOrDefault();
+    var title = Model.Content.Name + " - " + site.GetPropertyValue("sitename");
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@title</title>
+    <link href="/dist/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="/assets/css/custom.css" rel="stylesheet" media="screen">
+    <link href="/css/carousel.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="/assets/js/html5shiv.js"></script>
+      <script src="/assets/js/respond.min.js"></script>
+    <![endif]-->
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,300italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.css" media="screen" />
+    <!--[if lt IE 7]><link rel="stylesheet" type="text/css" href="/assets/css/font-awesome-ie7.css" media="screen" /><![endif]-->
+    <link rel="stylesheet" type="text/css" href="/css/fullscreen.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/plugins/revolution/css/settings.css" media="screen" />
+    <link rel="stylesheet" href="/assets/css/jquery-ui.css" />
+
+    <script src="/assets/js/jquery.v2.0.3.js"></script>
+    @RenderSection("styles", false)
+</head>
+<body id="top">
+
+    <!-- Top wrapper -->
+    <div class="navbar-wrapper2 navbar-fixed-top">
+        <div class="container">
+            <div class="navbar mtnav">
+                <div class="container offset-3">
+                    @Html.Partial("~/views/partials/navigation/topNavigation.cshtml")
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Top wrapper -->
+
+
+
+    @RenderBody()
+    <script src="/assets/js/js-index3.js"></script>
+    <script src="/assets/js/functions.js"></script>
+    <script src="/assets/js/jquery-ui.js"></script>
+    <script src="/assets/js/jquery.easing.js"></script>
+    <script src="/plugins/revolution/js/jquery.themepunch.revolution.min.js"></script>
+    <script src="/assets/js/jquery.nicescroll.min.js"></script>
+    <script src="/assets/js/jquery.carouFredSel-6.2.1-packed.js"></script>
+    <script src="/assets/js/helper-plugins/jquery.touchSwipe.min.js"></script>
+    <script src="/assets/js/helper-plugins/jquery.mousewheel.min.js"></script>
+    <script src="/assets/js/helper-plugins/jquery.transit.min.js"></script>
+    <script src="/assets/js/helper-plugins/jquery.ba-throttle-debounce.min.js"></script>
+    <script src='/assets/js/jquery.customSelect.js'></script>
+    <script src="/dist/js/bootstrap.min.js"></script>
+    @RenderSection("scripts", false)
+</body>
+</html>

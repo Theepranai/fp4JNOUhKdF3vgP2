@@ -1,0 +1,22 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.ContentPage>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+    Layout = "Master.cshtml";
+}
+
+@Html.Partial("~/Views/Partials/SectionHeader.cshtml")
+
+<div class="container breadcrub">
+    
+    <div class="clearfix"></div>
+    <div class="brlines"></div>
+</div>
+
+    <div class="container pagecontainer offset-0">
+
+        <div class="container mt25 offset-0">
+            <div class="pagecontainer2 offset-0">
+                @Html.GetGridHtml(Model.Content, "bodyText")
+            </div>
+        </div>
+    </div>

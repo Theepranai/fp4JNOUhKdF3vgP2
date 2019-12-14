@@ -1,0 +1,579 @@
+﻿@inherits UmbracoViewPage<ChicCarrental_Models.PageModel.Step1Model>
+@{
+    Layout = "Master.cshtml";
+}
+@section styles{
+    <link href="/updates/update1/css/style01.css" rel="stylesheet" media="screen">
+
+    <link rel="stylesheet" href="plugins/jslider/css/jslider.css" type="text/css">
+    <link rel="stylesheet" href="plugins/jslider/css/jslider.round.css" type="text/css">
+
+    <script type="text/javascript" src="plugins/jslider/js/jshashtable-2.1_src.js"></script>
+    <script type="text/javascript" src="plugins/jslider/js/jquery.numberformatter-1.2.3.js"></script>
+    <script type="text/javascript" src="plugins/jslider/js/tmpl.js"></script>
+    <script type="text/javascript" src="plugins/jslider/js/jquery.dependClass-0.1.js"></script>
+    <script type="text/javascript" src="plugins/jslider/js/draggable-0.1.js"></script>
+    <script type="text/javascript" src="plugins/jslider/js/jquery.slider.js"></script>
+}
+
+<div class="container breadcrub">
+    <div>
+
+    </div>
+    <div class="clearfix"></div>
+    <div class="brlines"></div>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+    <div class="container pagecontainer offset-0">
+
+        <!-- FILTERS -->
+        <div class="col-md-3 filters offset-0">
+
+
+            <!-- TOP TIP -->
+            <div class="filtertip">
+                <div class="padding20">
+                    <p class="size13"><b>@Model.ListCar.Count()</b> vehicles found</p>
+                    @{
+                        decimal? priceless = Model.ListCar.Min(x => x.price.price);
+                    }
+                    <p class="size30 bold"><span class="size13 normal darkblue">Starting</span> ฿<span class="countprice"></span><span class="size13 normal darkblue">/day</span></p>
+
+                </div>
+                <div class="tip-arrow"></div>
+            </div>
+
+
+            <div class="bookfilters hpadding20">
+
+
+                <div class="size30 dark">Rent a car</div>
+                <!-- CARS TAB -->
+                <div class="">
+                    <form method="post" action="/booking" autocomplete="off">
+                        <div class="w50percent">
+                            <div class="wh90percent textleft">
+                                <span class="opensans size13">Picking up</span>
+                                <select class="form-control selectbox" name="pickuploc" required>
+                                    @foreach (var x in Model.Branch)
+                                    {
+                                        <option value="@x.A_ID" @(Request["pickuploc"] == x.A_ID.ToString() ? "selected" : "")>@x.Branch_Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="w50percentlast">
+                            <div class="wh90percent textleft right">
+                                <span class="opensans size13">Dropping off</span>
+                                <select class="form-control selectbox" name="dropoffloc">
+                                    @foreach (var x in Model.Branch)
+                                    {
+                                        <option value="@x.A_ID" @(Request["dropoffloc"] == x.A_ID.ToString() ? "selected" : "")>@x.Branch_Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="clearfix pbottom15"></div>
+
+                        <div class="w50percent">
+                            <div class="wh90percent textleft">
+                                <span class="opensans size13">Pick up date</span>
+                                <input class="form-control mySelectCalendar" id="datepicker5" type="text" value="@Request["pickupdate"]" name="pickupdate" required>
+                            </div>
+                        </div>
+
+                        <div class="w50percentlast">
+                            <div class="wh90percent textleft right">
+                                <span class="opensans size13">Hour</span>
+                                <select class="form-control mySelectBoxClass" name="pickuptime">
+                                    <option value="@Request["pickuptime"]" selected>@Request["pickuptime"]</option>
+                                    <option>12:00 AM</option>
+                                    <option>12:30 AM</option>
+                                    <option>01:00 AM</option>
+                                    <option>01:30 AM</option>
+                                    <option>02:00 AM</option>
+                                    <option>02:30 AM</option>
+                                    <option>03:00 AM</option>
+                                    <option>03:30 AM</option>
+                                    <option>04:00 AM</option>
+                                    <option>04:30 AM</option>
+                                    <option>05:00 AM</option>
+                                    <option>05:30 AM</option>
+                                    <option>06:00 AM</option>
+                                    <option>06:30 AM</option>
+                                    <option>07:00 AM</option>
+                                    <option>07:30 AM</option>
+                                    <option>08:00 AM</option>
+                                    <option>08:30 AM</option>
+                                    <option>09:00 AM</option>
+                                    <option>09:30 AM</option>
+                                    <option>10:00 AM</option>
+                                    <option>10:30 AM</option>
+                                    <option>11:00 AM</option>
+                                    <option>11:30 AM</option>
+                                    <option>12:00 PM</option>
+                                    <option>12:30 PM</option>
+                                    <option>01:00 PM</option>
+                                    <option>01:30 PM</option>
+                                    <option>02:00 PM</option>
+                                    <option>02:30 PM</option>
+                                    <option>03:00 PM</option>
+                                    <option>03:30 PM</option>
+                                    <option>04:00 PM</option>
+                                    <option>04:30 PM</option>
+                                    <option>05:00 PM</option>
+                                    <option>05:30 PM</option>
+                                    <option>06:00 PM</option>
+                                    <option>06:30 PM</option>
+                                    <option>07:00 PM</option>
+                                    <option>07:30 PM</option>
+                                    <option>08:00 PM</option>
+                                    <option>08:30 PM</option>
+                                    <option>09:00 PM</option>
+                                    <option>09:30 PM</option>
+                                    <option>10:00 PM</option>
+                                    <option>10:30 PM</option>
+                                    <option>11:00 PM</option>
+                                    <option>11:30 PM</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="clearfix pbottom15"></div>
+
+                        <div class="room1">
+                            <div class="w50percent">
+                                <div class="wh90percent textleft">
+                                    <span class="opensans size13">Drop off date</span>
+                                    <input class="form-control mySelectCalendar" id="datepicker6" type="text" value="@Request["dropoffdate"]" name="dropoffdate" required>
+                                </div>
+                            </div>
+
+                            <div class="w50percentlast">
+                                <div class="wh90percent textleft right">
+                                    <span class="opensans size13">Hour</span>
+                                    <select class="form-control mySelectBoxClass" name="dropofftime">
+                                        <option value="@Request["dropofftime"]" selected>@Request["dropofftime"]</option>
+                                        <option>12:00 AM</option>
+                                        <option>12:30 AM</option>
+                                        <option>01:00 AM</option>
+                                        <option>01:30 AM</option>
+                                        <option>02:00 AM</option>
+                                        <option>02:30 AM</option>
+                                        <option>03:00 AM</option>
+                                        <option>03:30 AM</option>
+                                        <option>04:00 AM</option>
+                                        <option>04:30 AM</option>
+                                        <option>05:00 AM</option>
+                                        <option>05:30 AM</option>
+                                        <option>06:00 AM</option>
+                                        <option>06:30 AM</option>
+                                        <option>07:00 AM</option>
+                                        <option>07:30 AM</option>
+                                        <option>08:00 AM</option>
+                                        <option>08:30 AM</option>
+                                        <option>09:00 AM</option>
+                                        <option>09:30 AM</option>
+                                        <option>10:00 AM</option>
+                                        <option>10:30 AM</option>
+                                        <option>11:00 AM</option>
+                                        <option>11:30 AM</option>
+                                        <option>12:00 PM</option>
+                                        <option>12:30 PM</option>
+                                        <option>01:00 PM</option>
+                                        <option>01:30 PM</option>
+                                        <option>02:00 PM</option>
+                                        <option>02:30 PM</option>
+                                        <option>03:00 PM</option>
+                                        <option>03:30 PM</option>
+                                        <option>04:00 PM</option>
+                                        <option>04:30 PM</option>
+                                        <option>05:00 PM</option>
+                                        <option>05:30 PM</option>
+                                        <option>06:00 PM</option>
+                                        <option>06:30 PM</option>
+                                        <option>07:00 PM</option>
+                                        <option>07:30 PM</option>
+                                        <option>08:00 PM</option>
+                                        <option>08:30 PM</option>
+                                        <option>09:00 PM</option>
+                                        <option>09:30 PM</option>
+                                        <option>10:00 PM</option>
+                                        <option>10:30 PM</option>
+                                        <option>11:00 PM</option>
+                                        <option>11:30 PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div><br />
+                        <button type="submit" class="btn-search3">Search</button>
+                    </form>
+                </div>
+                <!-- END OF CARS TAB -->
+
+
+
+            </div>
+            <!-- END OF BOOK FILTERS -->
+
+            <div class="line2"></div>
+
+            <div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
+            <div class="line2"></div>
+
+
+            <!-- Price range -->
+            @*<button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse2">
+                Price range <span class="collapsearrow"></span>
+            </button>
+
+            <div id="collapse2" class="collapse in">
+                <div class="padding20">
+                    <div class="layout-slider wh100percent">
+                        <span class="cstyle09"><input id="Slider1" type="slider" name="price" value="400;700" /></span>
+                    </div>
+                    <script type="text/javascript">
+                        jQuery("#Slider1").slider({ from: 100, to: 1000, step: 5, smooth: true, round: 0, dimension: "&nbsp;$", skin: "round" });
+                    </script>
+                </div>
+            </div>*@
+            <!-- End of Price range -->
+
+            <div class="line2"></div>
+
+            <!-- Car type -->
+            <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse3">
+                Car type <span class="collapsearrow"></span>
+            </button>
+            <div id="collapse3" class="collapse in">
+                <div class="hpadding20">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">Economy
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">Compact
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">Midsize
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">Standard
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">Fullsize
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">Premium
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">Luxury
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">Convertible
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">Minivan
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">Sport Utility Vehicles
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">Sport cars
+                        </label>
+                    </div>
+
+
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!-- End of Car type -->
+
+            <div class="line2"></div>
+
+
+
+            <div class="line2"></div>
+            <div class="clearfix"></div>
+            <br />
+            <br />
+            <br />
+
+
+        </div>
+        <!-- END OF FILTERS -->
+        <!-- LIST CONTENT-->
+        <div class="rightcontent col-md-9 offset-0">
+
+            <div class="hpadding20">
+                <!-- Top filters -->
+                <div class="topsortby">
+                    <div class="col-md-4 offset-0">
+
+                        <div class="left mt7"><b>Sort by:</b></div>
+
+                        <div class="right wh70percent">
+                            <select class="form-control mySelectBoxClass ">
+                                <option selected>Manufacturer</option>
+                                <option>Audi</option>
+                                <option>BMW</option>
+                                <option>Mazda</option>
+                                <option>Lamborghini</option>
+                                <option>Porsche</option>
+                                <option>Volkswagen</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="w50percent">
+                            <div class="wh90percent">
+                                <select class="form-control mySelectBoxClass ">
+                                    <option selected>Automatic</option>
+                                    <option>Manual</option>
+                                    <option>CVT (Continuous variable transmission)</option>
+                                    <option>Semi automatic</option>
+                                    <option>TipTronic® gearbox</option>
+                                    <option>DSG (Direct shift gearbox)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="w50percentlast">
+                            <div class="wh90percent">
+                                <select class="form-control mySelectBoxClass ">
+                                    <option selected>Price</option>
+                                    <option>Ascending</option>
+                                    <option>Descending</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 offset-0">
+                        <div class="wh50percent left">
+                            <select class="form-control mySelectBoxClass ">
+                                <option selected>Fuel type</option>
+                                <option>Diesel</option>
+                                <option>Petrol</option>
+                                <option>Hibrid</option>
+                                <option>Electric</option>
+                            </select>
+                        </div>
+                        <div class="right">
+                            <button class="gridbtn active btn-view" data-val="grid-view">&nbsp;</button>
+                            <button class="listbtn btn-view" data-val="list-view">&nbsp;</button>
+                            @*<button class="grid2btn active">&nbsp;</button>*@
+                        </div>
+                    </div>
+                </div>
+                <!-- End of topfilters-->
+            </div>
+            <!-- End of padding -->
+
+            <br /><br />
+            <div class="clearfix"></div>
+
+
+            <div class="itemscontainer offset-1" id="grid-view">
+
+                @{
+                    var row = 0;
+                    foreach (var c in Model.ListCar)
+                    {
+                        row++;
+                        var Image = Umbraco.Media(c.image);
+
+                        <div class="col-md-4">
+                            <form method="post" action="/booking/step2">
+                                <!-- CONTAINER-->
+                                <input type="hidden" name="pickuploc" value="@Request["pickuploc"]" />
+                                <input type="hidden" name="pickupdate" value="@Request["pickupdate"]" />
+                                <input type="hidden" name="pickuptime" value="@Request["pickuptime"]" />
+                                <input type="hidden" name="dropoffloc" value="@Request["dropoffloc"]" />
+                                <input type="hidden" name="dropoffdate" value="@Request["dropoffdate"]" />
+                                <input type="hidden" name="dropofftime" value="@Request["dropofftime"]" />
+                                <input type="hidden" name="car_id" value="@c.A_ID" />
+                                <input type="hidden" name="price_id" value="@c.price.price_id" />
+                                <div class="carscontainer">
+                                    <div class="center" style="height:250px">
+                                        <a href=""><img src="@Image.Url" class="img-responsive" alt="" /></a>
+                                    </div>
+                                    <div class="hpadding20" style="height:100px">
+                                        <span class="glyphicon glyphicon-info-sign right lblue cpointer popover" rel="popover" data-content="This field is mandatory" data-original-title="Here you can add additional information about the car"></span>
+
+                                        <span class="size14 bold dark">@c.name</span><br />
+                                        <span class="size13 bold grey mt-5">@c.feature</span><br />
+                                        <span class="size13 grey">
+                                            <span class="icn-gas"></span>Full to full<br />
+                                            <span class="icn-gear"></span>@c.tranmission<br />
+                                        </span>
+                                    </div>
+                                    <div class="purchasecontainer">
+                                        <span class="size18 bold green mt5">฿@(c.price.price?.ToString("N2"))</span><br />
+                                        <span class="size12 mt-3 grey"><i>per day</i></span>
+                                        <button class="bookbtn right margtop-20">Book</button>
+                                    </div>
+                                </div>
+                                <!-- END OF CONTAINER-->
+                            </form>
+                        </div>
+
+                        if (row % 3 == 0)
+                        {
+                            <div class="clearfix"></div><br />
+                        }
+                    }
+                }
+
+
+                <div class="clearfix"></div>
+                <div class="offset-2"><hr class="featurette-divider3"></div>
+
+
+            </div>
+            <!-- End of offset1-->
+
+            <div class="itemscontainer offset-1" id="list-view" style="display:none;">
+                @{
+                    row = 0;
+                    foreach (var c in Model.ListCar)
+                    {
+                        row++;
+                        var Image = Umbraco.Media(c.image);
+
+                        <div class="offset-2">
+                            <form method="post" action="/booking/step2">
+                                <input type="hidden" name="pickuploc" value="@Request["pickuploc"]" />
+                                <input type="hidden" name="pickupdate" value="@Request["pickupdate"]" />
+                                <input type="hidden" name="pickuptime" value="@Request["pickuptime"]" />
+                                <input type="hidden" name="dropoffloc" value="@Request["dropoffloc"]" />
+                                <input type="hidden" name="dropoffdate" value="@Request["dropoffdate"]" />
+                                <input type="hidden" name="dropofftime" value="@Request["dropofftime"]" />
+                                <input type="hidden" name="car_id" value="@c.A_ID" />
+                                <input type="hidden" name="price_id" value="@c.price.price_id" />
+                                <div class="col-md-4 offset-0">
+                                    <div class="listitem2">
+                                        <a href="@Image.Url" data-footer="A custom footer text" data-title="A random title" data-gallery="multiimages" data-toggle="lightbox"><img src="@Image.Url" alt=""></a>
+                                        @*<div class="liover" style="width: 10%; height: 10%; background-color: rgb(255, 153, 0); position: absolute; top: 105px; left: 135.5px; opacity: 0;"></div>
+                                        <a class="fav-icon" href="#" style="top: 94px; left: 271px;"></a>
+                                        <a class="book-icon" href="details.html" style="top: 94px; left: -25px;"></a>*@
+                                    </div>
+                                </div>
+                                <div class="col-md-8 offset-0">
+                                    <div class="itemlabel3">
+                                        <div class="labelright">
+                                            @*<img src="/images/filter-rating-5.png" width="60" alt=""><br><br><br>
+                                            <img src="/images/user-rating-5.png" width="60" alt=""><br>
+                                            <span class="size11 grey">18 Reviews</span><br><br>*@
+                                            <span class="green size18"><b>฿@(c.price.price?.ToString("N2"))</b></span><br>
+                                            <span class="size11 grey">per day(s)</span><br><br><br>                                 
+                                                <button class="bookbtn mt1" type="submit">Book</button>
+                                        </div>
+                                        <div class="labelleft2">
+                                            <b>@c.name</b><br><br><br>
+                                            <p class="grey">
+                                                @c.feature
+                                            </p><br>
+                                                <ul class="hotelpreferences">
+                                                    <li class="icn-gas"></li>
+                                                    <li class="icn-gear"></li>
+                                                </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="clearfix"></div>
+                    }
+                }
+
+
+            </div>
+
+            <div class="hpadding20">
+
+                @*<ul class="pagination right paddingbtm20">
+                <li class="disabled"><a href="#">&laquo;</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">&raquo;</a></li>
+            </ul>*@
+
+            </div>
+
+        </div>
+        <!-- END OF LIST CONTENT-->
+
+
+
+    </div>
+    <!-- END OF container-->
+
+</div>
+<!-- END OF CONTENT -->
+
+@Html.Partial("~/views/partials/footer.cshtml")
+
+@section scripts{
+    <script src="/assets/js/js-list.js"></script>
+    <script type="text/javascript" src="plugins/jslider/js/jshashtable-2.1_src.js"></script>
+    <script type="text/javascript" src="plugins/jslider/js/jquery.numberformatter-1.2.3.js"></script>
+    <script type="text/javascript" src="plugins/jslider/js/tmpl.js"></script>
+    <script type="text/javascript" src="plugins/jslider/js/jquery.dependClass-0.1.js"></script>
+    <script type="text/javascript" src="plugins/jslider/js/draggable-0.1.js"></script>
+    <script type="text/javascript" src="plugins/jslider/js/jquery.slider.js"></script>
+    <!-- Counter -->
+    <script src="assets/js/counter.js"></script>
+    <script>
+        jQuery(function (jQuery) {
+            jQuery('.countprice').countTo({
+                from: 5,
+                to: @priceless,
+                speed: 1000,
+                refreshInterval: 50,
+                onComplete: function (value) {
+                    console.debug(this);
+                }
+            });
+
+            jQuery(".popover").popover({ placement: 'top', trigger: 'hover' });
+            jQuery('.btn-view').click(function () {
+                jQuery('.btn-view').removeClass('active');
+                jQuery(this).addClass('active');
+                jQuery('.itemscontainer').hide();
+                var view = jQuery(this).attr('data-val');
+                jQuery('#' + view).show();
+            })
+        });
+    </script>
+}

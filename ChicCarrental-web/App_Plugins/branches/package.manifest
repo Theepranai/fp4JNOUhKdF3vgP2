@@ -1,0 +1,11 @@
+﻿{
+    javascript: [
+        "/App_Plugins/branches/scripts/branches.controller.js",
+		"/App_Plugins/branches/scripts/branches.car.controller.js",
+		"/App_Plugins/branches/scripts/branches.car-edit.controller.js",
+		"/App_Plugins/branches/scripts/branches.car-price.controller.js"
+    ],
+    css: [
+
+    ]
+}

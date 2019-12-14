@@ -1,0 +1,39 @@
+﻿<div>
+
+    <ul class="unstyled" ng-if="node">
+        <li>
+            <ul class="umb-sortable-thumbnails">
+                <li class="umb-sortable-thumbnails__wrapper">
+                    <img ng-src="{{node.thumbnail}}" class="img-thumbnail" />
+                </li>
+            </ul>
+        </li>
+        <li>
+            <i class="icon {{node.icon}} hover-hide"></i>
+            {{node.name}}
+
+        </li>
+    </ul>
+
+    <ul class="unstyled list-icons" ng-if="!node">
+        <li class="sortable-thumbnails">
+            <i class="icon icon-picture hover-hide"></i>
+            no image
+        </li>
+    </ul>
+
+    <ul class="unstyled list-inline inline">
+        <li ng-if="node">
+            <i class="icon icon-delete red"></i>
+            <a href="javascript:;" ng-click="removePicture()" prevent-default> Remove</a>
+        </li>
+        <li>
+            <i class="icon icon-add blue"></i>
+            <a href="javascript:;" ng-click="openMediaPicker()" prevent-default>
+                Select
+            </a>
+        </li>
+
+    </ul>
+
+</div>

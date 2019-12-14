@@ -1,0 +1,304 @@
+﻿@inherits UmbracoViewPage<ChicCarrental_Models.PageModel.Step2Model>
+@{
+    Layout = "Master.cshtml";
+    var c = Model.Car;
+}
+<div class="container breadcrub">
+    <div>
+
+    </div>
+    <div class="clearfix"></div>
+    <div class="brlines"></div>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+    <div class="container pagecontainer offset-0">
+
+        <!-- SLIDER -->
+        <div class="col-md-8 details-slider">
+            @{
+                var Image = Umbraco.Media(c.image);
+            }
+            <div class="wh80percent center">
+                <img src="@Image.Url" class="fwimg" alt="" />
+            </div>
+
+            <script>
+                //Popover tooltips
+                $(function () {
+                    $("#infottip2").popover({ placement: 'top', trigger: 'hover' });
+                });
+            </script>
+            <div class="cposalert">
+                <a href="#" class="lblue" rel="popover" id="infottip2" data-content="When you pick up your car a deposit is usually held on your card for your excess which may be charged if the vehicle is damaged. Take our Damage Excess Refund and if you have any bumps or scrapes we'll refund any deductions from your excess. " data-original-title="Excess Protection -  Excellent Value, Best Cover, Peace of Mind">What is this?</a>
+                <div class="alert alert-danger alertcust"><span class="glyphicon glyphicon-remove-sign"></span> Warning! Your excess is currently unprotected <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button></div>
+            </div>
+
+        </div>
+        <!-- END OF SLIDER -->
+        <!-- RIGHT INFO -->
+        <div class="col-md-4 detailsright offset-0">
+            <form method="post" action="/booking/step3">
+                <input type="hidden" name="pickuploc" value="@Request["pickuploc"]" />
+                <input type="hidden" name="pickupdate" value="@Request["pickupdate"]" />
+                <input type="hidden" name="pickuptime" value="@Request["pickuptime"]" />
+                <input type="hidden" name="dropoffloc" value="@Request["dropoffloc"]" />
+                <input type="hidden" name="dropoffdate" value="@Request["dropoffdate"]" />
+                <input type="hidden" name="dropofftime" value="@Request["dropofftime"]" />
+                <input type="hidden" name="car_id" value="@c.A_ID" />
+                <input type="hidden" name="price_id" value="@c.price.price_id" />
+
+                <div class="padding20">
+                    <div class="wh70percent left">
+                        <span class="opensans size18 dark bold">@c.name</span><br />
+                        <span class="opensans size13 grey bold">@c.feature</span>
+                    </div>
+                    <div class="wh30percent right">
+                        <table class="right">
+                            <tr>
+                                <td>@*<span class="size12 lgrey"><i>per day</i></span>*@</td>
+                                <td><span class="size14 grey bold">฿@(c.price.price?.ToString("N2"))</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="size12 lgrey"><a href="javascript:;" class="lblue" onclick="history.go(-1); return false;">change</a></span></td>
+                                <td><span class="size12 grey">(@Model.NumDate days)</span></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="line3"></div>
+
+                <div class="padding20">
+
+                    <script>
+                        //Popover tooltips
+                        $(function () {
+                            $("#infottip").popover({ placement: 'top', trigger: 'hover' });
+                        });
+                    </script>
+
+                    <span class="opensans size14 bold dark">Extras</span> <span class="glyphicon glyphicon-info-sign lblue cpointer" rel="popover" id="infottip" data-content="This field is mandatory" data-original-title="Here you can add additional information about the car"></span>
+
+                    <div class="rchkbox size13 grey2">
+                        @foreach (var extra in Model.ExtraOption)
+                        {
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="extraitem" name="extra" value="@extra.A_ID" data-price="@extra.Price">@extra.Name <span class="right grey">@(extra.Price.ToString("N2"))</span>
+                                </label>
+                            </div>
+                        }
+                    </div>
+
+
+                </div>
+
+                <div class="line3"></div>
+
+                <div class="padding20">
+
+                    <table class="wh100percent size12 bold dark" id="itemdispay">
+                        <tr>
+                            <td>@c.name</td>
+                            <td class="textright" >฿@(Model.TotalPrice.ToString("N2"))</td>
+                        </tr>
+                    </table>
+                    <div class="fdash mt10"></div><br />
+                    <span class="size14 dark bold">Total price:</span>
+                    <span class="size24 green bold right margtop-5" id="totalprice">฿@(Model.TotalPrice.ToString("N2"))</span>
+                </div>
+
+                <div class="line3"></div>
+
+                <div class="clearfix"></div>
+
+                <div class="hpadding20">
+                    <button type="submit" class="booknow margtop20 btnmarg">Book now</button><br />
+                </div>
+            </form>
+        </div>
+        <!-- END OF RIGHT INFO -->
+
+    </div>
+    <!-- END OF container-->
+
+    <div class="container mt25 offset-0">
+
+        <!-- CONTENT -->
+        <div class="col-md-8 pagecontainer2 offset-0">
+
+            <br />
+
+            <p class="padding20">
+                <span class="bold dark">Vehicle details</span><br /><br />
+                <span class="icn-air"></span>On airport&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="icn-gas"></span>Full to full&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="icn-gear"></span>Manual<br />
+            </p>
+            <div class="line4"></div>
+
+            <!-- Collapse 6 -->
+            <button type="button" class="collapsebtn2" data-toggle="collapse" data-target="#collapse6">
+                We give you the following for FREE: <span class="collapsearrow"></span>
+            </button>
+
+            <br /><br />
+
+            <div id="collapse6" class="collapse in">
+                <div class="hpadding20">
+                    <div class="col-md-6">
+                        <ul class="checklist">
+                            <li>Amendments</li>
+                            <li>Theft Protection</li>
+                            <li>Direct-dial phone</li>
+                            <li>Collision Damage Waiver</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="checklist">
+                            <li>Unlimited Kilometres for ALL car groups</li>
+                            <li>Local Taxes</li>
+                            <li>PRoad Fee</li>
+                            <li>First Additional Driver</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!-- End of collapse 6 -->
+
+            <br /><br />
+            <div class="line4"></div>
+
+
+            <!-- Collapse 1 -->
+            <button type="button" class="collapsebtn2" data-toggle="collapse" data-target="#collapse1">
+                Excess Protection -  Excellent Value, Best Cover, Peace of Mind <span class="collapsearrow"></span>
+            </button>
+
+            <br /><br />
+
+            <div id="collapse1" class="collapse in">
+                <div class="hpadding20">
+                    When you pick up your car a deposit is usually held on your card for your excess which may be charged if the vehicle is damaged. Take our Damage Excess Refund and if you have any bumps or scrapes we'll refund any deductions from your excess.
+                    <br /><br />
+                    <div class="hpadding20">
+                        <ul class="checklist">
+                            <li><span class="bold green">You're protected</span> - Damage Excess Refund protects you when things go wrong and you are required to pay out from your excess</li>
+                            <li><span class="bold green">Accidents covered</span>  - Your excess will be protected if your vehicle is damaged in an accident</li>
+                            <li><span class="bold green">Damage cover</span>  - Damage to bodywork, vehicle parts and accessories incurred during most driving incidents is covered.</li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!-- End of collapse 1 -->
+
+            <br /><br />
+            <br /><br />
+            <br />
+
+
+
+        </div>
+        <!-- END OF CONTENT -->
+
+        <div class="col-md-4">
+
+            <div class="pagecontainer2 testimonialbox">
+                <div class="cpadding0 mt-10">
+                    <span class="icon-quote"></span>
+                    <p class="opensans size16 grey2">
+                        Best car choice, low consumption and a very comfortable ride. I kindly recomend it.<br />
+                        <span class="lato lblue bold size13"><i>by Ellison from United Kingdom</i></span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="pagecontainer2 mt20 needassistancebox">
+                <div class="cpadding1">
+                    <span class="icon-help"></span>
+                    <h3 class="opensans">Need Assistance?</h3>
+                    <p class="size14 grey">Our team is 24/7 at your service to help you with your booking issues or answer any related questions</p>
+                    <p class="opensans size30 lblue xslim">1-866-599-6674</p>
+                </div>
+            </div><br />
+
+            <div class="pagecontainer2 mt20 alsolikebox">
+                <div class="cpadding1">
+                    <span class="icon-location"></span>
+                    <h3 class="opensans">You May Also Like</h3>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="cpadding1 ">
+                    <a href="#"><img src="/updates/update1/img/cars/car02.jpg" width="100" class="left mr20" alt="" /></a>
+                    <a href="#" class="dark"><b>VW Passat</b></a><br />
+                    <span class="grey"><b>Premium</b></span><br />
+                    <span class="opensans green bold size14">$70.00</span> <span class="grey">/day</span><br />
+                </div>
+                <div class="line5"></div>
+                <div class="cpadding1 ">
+                    <a href="#"><img src="/updates/update1/img/cars/car03.jpg" width="100" class="left mr20" alt="" /></a>
+                    <a href="#" class="dark"><b>BMW M7</b></a><br />
+                    <span class="grey"><b>Luxury</b></span><br />
+                    <span class="opensans green bold size14">$95.00</span> <span class="grey">/day</span><br />
+                </div>
+                <div class="line5"></div>
+                <div class="cpadding1 ">
+                    <a href="#"><img src="/updates/update1/img/cars/car06.jpg" width="100" class="left mr20" alt="" /></a>
+                    <a href="#" class="dark"><b>BMW X5</b></a><br />
+                    <span class="grey"><b>Premium SUV</b></span><br />
+                    <span class="opensans green bold size14">$70.00</span> <span class="grey">/day</span><br />
+                </div>
+                <br />
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div>
+<!-- END OF CONTENT -->
+@Html.Partial("~/views/partials/footer.cshtml")
+
+@section scripts{
+    <script>
+        $(function () {
+
+            $('.extraitem').click(function () {
+                sumPrice();
+            })
+
+            function sumPrice() {
+                var total = parseFloat(@(c.price.price??0));
+                var numdate = parseInt(@Model.NumDate);
+                var sumitem = 0;
+                $('input.extraitem[type=checkbox]:checked').each(function () {
+                    sumitem = sumitem + parseFloat($(this).attr('data-price'));
+                });
+                total = total + sumitem;
+                total = total * numdate;
+                $('#totalprice').text("฿" + numberWithCommas(total.toFixed(2)));
+            }
+
+            function numberWithCommas(x) {
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+
+            setTimeout(function () {
+                sumPrice();
+            }, 2000);
+
+        });
+
+    </script>
+  
+}

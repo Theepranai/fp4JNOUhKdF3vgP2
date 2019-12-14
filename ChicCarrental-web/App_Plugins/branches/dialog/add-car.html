@@ -1,0 +1,43 @@
+﻿<div ng-controller="branches.car-edit.controller">
+    <form name="dialogForm" ng-submit="save()">
+        <umb-panel>
+            <div class="umb-panel-body no-header umb-scrollable with-footer">
+                <umb-pane>
+
+                    <umb-control-group label="Car">
+                        <input type="text" name="name" ng-model="model.name" ng-hide="selectnew" />
+                        <select ng-model="model.Car_ID" ng-show="selectnew">
+                            <option ng-repeat="o in car" value="{{o.id}}">
+                                {{o.name}}
+                            </option>
+                        </select>
+                    </umb-control-group>
+                    <umb-control-group label="Quantity">
+                        <input type="number" ng-model="model.Quantity" />
+                    </umb-control-group>
+                    <umb-control-group label="Teaser">
+                        <input type="text" ng-model="model.Teaser" />
+                    </umb-control-group>
+
+                    <umb-control-group label="Status">
+                        <select ng-model="model.Status" required>
+                            <option value="A" selected>Active</option>
+                            <option value="U">Unactive</option>
+                        </select>
+                    </umb-control-group>
+
+                </umb-pane>
+            </div>
+            <div class="umb-panel-footer">
+                <div class="btn-toolbar umb-btn-toolbar pull-right">
+                    <a class="btn btn-link" ng-click="close()">
+                        <localize key="cancel" />
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <localize key="buttons_save">Save</localize>
+                    </button>
+                </div>
+            </div>
+        </umb-panel>
+    </form>
+</div>

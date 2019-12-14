@@ -1,0 +1,106 @@
+﻿<div ng-controller="cars.controller">
+
+    <umb-load-indicator></umb-load-indicator>
+
+    <form name="contentForm"
+          ng-submit="save()"
+          novalidate
+          val-form-manager>
+
+        <umb-editor-view>
+
+            <umb-editor-header menu="data.name"
+                               name="data.name"
+                               hide-icon="true"
+                               hide-description="true"
+                               hide-alias="true">
+            </umb-editor-header>
+
+            <umb-editor-container class="form-horizontal">
+
+                <umb-control-group label="Image">
+                    <umb-media-picker ng-model="data.image" />
+                </umb-control-group>
+
+                <umb-control-group label="Brand">
+                    <select ng-model="data.brand" required>
+                        <option value="Honda" selected>Honda</option>
+                        <option value="Toyota">Toyota</option>
+                        <option value="Nissan">Nissan</option>
+                    </select>
+                </umb-control-group>
+
+                <umb-control-group label="vgroup">
+                    <input type="text" class="umb-editor umb-textstring" ng-model="data.vgroup" />
+                </umb-control-group>
+
+                <umb-control-group label="sipp">
+                    <input type="text" class="umb-editor umb-textstring" ng-model="data.sipp" />
+                </umb-control-group>
+
+                <umb-control-group label="feature">
+                    <input type="text" class="umb-editor umb-textstring" ng-model="data.feature" />
+                </umb-control-group>
+
+                <umb-control-group label="tranmission">
+                    <input type="text" class="umb-editor umb-textstring" ng-model="data.tranmission" />
+                </umb-control-group>
+
+                <umb-control-group label="year">
+                    <input type="text" class="umb-editor umb-textstring" ng-model="data.year" />
+                </umb-control-group>
+
+                <umb-control-group label="enging">
+                    <input type="text" class="umb-editor umb-textstring" ng-model="data.enging" />
+                </umb-control-group>
+
+                <umb-control-group label="door">
+                    <input type="text" class="umb-editor umb-textstring" ng-model="data.door" />
+                </umb-control-group>
+
+                <umb-control-group label="passenger">
+                    <input type="text" class="umb-editor umb-textstring" ng-model="data.passenger" />
+                </umb-control-group>
+
+                <umb-control-group label="luggage">
+                    <input type="text" class="umb-editor umb-textstring" ng-model="data.luggage" />
+                </umb-control-group>
+
+                <umb-control-group label="music_system">
+                    <input type="text" class="umb-editor umb-textstring" ng-model="data.music_system" />
+                </umb-control-group>
+
+                <umb-control-group label="Status">
+                    <select ng-model="data.status" required>
+                        <option value="A" selected>Active</option>
+                        <option value="U">Unactive</option>
+                    </select>
+                </umb-control-group>
+
+                <umb-control-group>
+                    <p>Add Date  : {{ data.add_Date  | date:'yyyy-MM-dd' }}</p>
+                    <p>Updated Date : {{ data.update_Date  | date:'yyyy-MM-dd' }}</p>
+                </umb-control-group>
+
+            </umb-editor-container>
+
+            <umb-editor-footer>
+
+                <umb-editor-footer-content-right>
+
+                    <umb-button type="submit"
+                                button-style="success"
+                                state="page.saveButtonState"
+                                shortcut="ctrl+s"
+                                label="Save"
+                                label-key="buttons_save">
+                    </umb-button>
+
+                </umb-editor-footer-content-right>
+
+            </umb-editor-footer>
+
+        </umb-editor-view>
+
+    </form>
+</div>

@@ -1,0 +1,11 @@
+﻿{
+    javascript: [
+		"/App_Plugins/Directives/scripts/umbMediaPicker.directive.js",
+		"/App_Plugins/Directives/scripts/umbTextEditor.directive.js",
+		"/App_Plugins/Directives/scripts/umbDatetimePicker.directive.js",
+		"/App_Plugins/Directives/scripts/umbMutiMediaPicker.directive.js"
+    ],
+    css: [
+
+    ]
+}
