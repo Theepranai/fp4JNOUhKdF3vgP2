@@ -121,7 +121,7 @@ namespace ChicCarrental_Controller.Plugins
                                         from tb_branch_car t1 
                                         inner join tb_car t2 on t1.Car_ID = t2.id
                                         inner join tb_branch t3 on t1.Branch_ID = t3.A_ID
-                                        where t1.Branch_ID = {0}", id);
+                                        where t1.Branch_ID = {0} and t1.Status <>'D'", id);
 
             return DatabaseContext.Database.Query<dto_carprice>(query).ToList();
         }
@@ -164,12 +164,12 @@ namespace ChicCarrental_Controller.Plugins
         [HttpGet]
         public object price(int id)
         {
-            var query = string.Format(@"select t1.A_ID,t4.*,t2.name,t3.Branch_Name
-                                        from tb_branch_car t1 
+            var query = string.Format(@"select t1.A_ID,t4.*,t2.name,t3.Branch_Name,t1.Branch_ID
+                                        from tb_branch_car t1
                                         inner join tb_car t2 on t1.Car_ID = t2.id
                                         inner join tb_branch t3 on t1.Branch_ID = t3.A_ID
                                         left join tb_car_price t4 on t1.A_ID = t4.car_branch_id
-                                        where t1.A_ID = {0}", id);
+                                        where t1.A_ID = {0} and t4.status <> 'D'", id);
 
             return DatabaseContext.Database.Query<tb_car_price>(query).ToList();
         }
@@ -187,6 +187,7 @@ namespace ChicCarrental_Controller.Plugins
                                   ,[price] = @price
                                   ,[price_code] = @price_code
                                   ,[paynow] = @paynow
+                                  ,[status  ] = @status
                                   ,[paynow_type] = @paynow_type
                                   ,[update_date] = Getdate()
                              WHERE price_id = @price_id
@@ -208,7 +209,8 @@ namespace ChicCarrental_Controller.Plugins
                            ,[price]
                            ,[price_code]
                            ,[paynow]
-                           ,[paynow_type])
+                           ,[paynow_type]
+                           ,[status])
                      VALUES
                            (@car_branch_id
                            ,@numdate
@@ -218,7 +220,8 @@ namespace ChicCarrental_Controller.Plugins
                            ,@price
                            ,@price_code
                            ,@paynow
-                           ,@paynow_type)";
+                           ,@paynow_type
+                           ,@status)";
 
             return DatabaseContext.Database.Execute(query, form);
         }

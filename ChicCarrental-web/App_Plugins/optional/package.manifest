@@ -1,0 +1,8 @@
+﻿{
+    javascript: [
+        "/App_Plugins/optional/scripts/optional.controller.js"
+    ],
+    css: [
+
+    ]
+}

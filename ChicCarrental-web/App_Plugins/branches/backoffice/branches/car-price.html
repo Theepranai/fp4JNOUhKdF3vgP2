@@ -1,6 +1,6 @@
 ﻿<div ng-controller="branches.car-price.controller">
 
-    <umb-load-indicator ng-if="loading"></umb-load-indicator>
+   
 
     <form name="contentForm"
           ng-submit="save()"
@@ -8,6 +8,8 @@
           val-form-manager>
 
         <umb-editor-view>
+
+            <umb-load-indicator ng-if="loading"></umb-load-indicator>
 
             <umb-editor-header name="name"
                                name-locked="true"
@@ -18,7 +20,7 @@
 
             <umb-editor-container class="form-horizontal">
 
-                <table class="table table-striped" cellspacing="0" cellpadding="5" ng-hide="model">
+                <table class="table table-striped" cellspacing="0" cellpadding="5" ng-hide="editform">
                     <thead>
                         <tr>
                             <th class="firstCol"><a ng-click="data.sortBy('A_ID')">#</a></th>
@@ -49,8 +51,8 @@
                     </tbody>
                 </table>
 
-                <div ng-show="model">
-                    
+                <div ng-show="editform">
+
                     <h3>Add / Edit price</h3>
                     <hr />
                     <umb-control-group label="numdate">
@@ -82,6 +84,13 @@
                             <option value="flatrate">flatrate</option>
                         </select>
                     </umb-control-group>
+                    <umb-control-group label="Status">
+                        <select ng-model="model.status" required>
+                            <option value="A" selected>Active</option>
+                            <option value="U">Unactive</option>
+                            <option value="D">Delete</option>
+                        </select>
+                    </umb-control-group>
                 </div>
 
             </umb-editor-container>
@@ -90,12 +99,13 @@
 
                 <umb-editor-footer-content-right>
 
-                    <a class="btn umb-button__button btn-info umb-button--" ng-click="cancel()">Back</a>
+                    <a class="btn btn-info" ng-click="cancel()">Back</a>
 
-                    <button class="btn umb-button__button btn-success umb-button--" type="submit" ng-show="model" >Save</button>
+                    <a class="btn btn-adn" ng-click="fristload()" ng-hide="editform">Refresh</a>
 
-                    <button class="btn umb-button__button btn-success umb-button--" type="button" ng-click="edit(addnew)" ng-hide="model">Add new</button>
+                    <button class="btn btn-success" type="submit" ng-show="editform">Save</button>
 
+                    <button class="btn btn-success" type="button" ng-click="addnew()" ng-hide="editform">Add new</button>
 
                 </umb-editor-footer-content-right>
 

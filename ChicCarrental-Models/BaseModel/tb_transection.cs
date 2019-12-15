@@ -34,15 +34,15 @@ namespace ChicCarrental_Models.BaseModel
 
         public System.Nullable<int> Numdate { get; set; }
 
-        public System.Nullable<decimal> Sum_Price { get; set; }
+        public System.Nullable<decimal> Sub_Total { get; set; }
 
-        public System.Nullable<decimal> Dsicount_Price { get; set; }
+        public System.Nullable<decimal> Vat_Total { get; set; }
+
+        public System.Nullable<decimal> Discount_Total { get; set; }
 
         public System.Nullable<decimal> Total_Price { get; set; }
 
         public System.Nullable<int> Customer_ID { get; set; }
-
-        public System.Nullable<int> PickupCus_ID { get; set; }
 
         public string Comment { get; set; }
 

@@ -5,12 +5,14 @@ angular.module("umbraco").controller('branches.car.controller',
 
         $scope.data = {};
         $scope.items = {};
-
+        $scope.loading = true;
        
         $scope.fristload = function () {
+            $scope.loading = true;
             $http.get("backoffice/branches/branchesapi/car/" + $routeParams.id)
                 .then(function (response) {
                     $scope.items = response.data;
+                    $scope.loading = false;
                 });
         };
 
@@ -29,9 +31,7 @@ angular.module("umbraco").controller('branches.car.controller',
                 // pass in data used in dialog
                 dialogData: x,
                 // function called when dialog is closed
-                callback: function (value) {
-                    $scope.fristload();
-                }
+                callback: $scope.fristload()
             });
         };
 

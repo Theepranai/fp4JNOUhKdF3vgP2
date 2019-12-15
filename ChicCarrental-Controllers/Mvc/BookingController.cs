@@ -44,16 +44,18 @@ namespace ChicCarrental_Controller.Mvc
 
             DateTime pudate = _functional.ConvertDate(param.pickupdate);
             DateTime dfdate = _functional.ConvertDate(param.dropoffdate);
-            int ndate = (dfdate - pudate).Days;
+            int ndate = (dfdate - pudate).Days + 1;
+
             if (ndate <= 0)
             {
                 dfdate = dfdate.AddDays(1);
+                param.dropoffdate = dfdate.ToString("yyyy-MM-dd");
             }
 
             var sql = string.Format(@"Select A_ID,[Branch_ID],[Car_ID],t2.*
                                             From tb_branch_car t1
                                             Inner join tb_car t2 on t1.Car_ID = t2.id
-                                            Where Branch_ID = {0}", param.pickuploc);
+                                            Where Branch_ID = {0} and t1.Status ='A'", param.pickuploc);
 
             rto.ListCar = DatabaseContext.Database.Fetch<dto_carprice>(sql);
             rto.ListCar.ForEach(x=>
@@ -83,7 +85,7 @@ namespace ChicCarrental_Controller.Mvc
             var sql = string.Format(@"Select t1.A_ID,Branch_ID,Car_ID,t2.*
                                     From tb_branch_car t1
                                     Inner join tb_car t2 on t1.Car_ID = t2.id
-                                    Where t1.A_ID = {0}", param.car_id);
+                                    Where t1.A_ID = {0} and t1.Status ='A'", param.car_id);
 
             rto.Car = DatabaseContext.Database.Fetch<dto_carprice>(sql).FirstOrDefault();
 
@@ -91,9 +93,7 @@ namespace ChicCarrental_Controller.Mvc
 
             rto.TotalPrice = (rto.Car?.price.price ?? 0) * rto.NumDate;
 
-            rto.ExtraOption = DatabaseContext.Database.Fetch<tb_optional>(string.Format("select * from tb_optional"));
-
-            rto.Insurance = DatabaseContext.Database.Fetch<tb_insurance>(string.Format("select * from tb_insurance"));
+            rto.ExtraOption = DatabaseContext.Database.Fetch<tb_optional>(string.Format("select * from tb_optional where Status = 'A' "));
 
             return CurrentTemplate(rto);
         }
@@ -117,7 +117,7 @@ namespace ChicCarrental_Controller.Mvc
             var sql = string.Format(@"Select t1.A_ID,Branch_ID,Car_ID,t2.*
                                     From tb_branch_car t1
                                     Inner join tb_car t2 on t1.Car_ID = t2.id
-                                    Where t1.A_ID = {0}", param.car_id);
+                                    Where t1.A_ID = {0} and t1.Status ='A'", param.car_id);
 
             rto.Car = DatabaseContext.Database.Fetch<dto_carprice>(sql).FirstOrDefault();
 
@@ -125,7 +125,7 @@ namespace ChicCarrental_Controller.Mvc
 
             rto.TotalCarPrice = (rto.Car?.price.price ?? 0) * rto.NumDate;
 
-            var listextra = string.Join(",", param.extra ?? new int[] { 0 });
+            var listextra = string.Join(", ", param.extra ?? new int[] { 0 });
             rto.ExtraOption = DatabaseContext.Database.Fetch<tb_optional>(string.Format("select * from tb_optional where A_ID in ({0})", listextra));
             
             rto.TotalExtra = rto.ExtraOption.Sum(x => x.Price) * rto.NumDate;
@@ -141,6 +141,20 @@ namespace ChicCarrental_Controller.Mvc
             var rto = new Step4Model(CurrentPage);
             rto.Transection_ID = Convert.ToInt32(id);
             rto.Transection = DatabaseContext.Database.Fetch<tb_transection>(string.Format("select top(1) * from tb_transection where ID = {0}", rto.Transection_ID)).FirstOrDefault();
+
+            var sqlcar = string.Format(@"Select t1.A_ID,Branch_ID,Car_ID,t2.*
+                                    From tb_branch_car t1
+                                    Inner join tb_car t2 on t1.Car_ID = t2.id
+                                    Where t1.A_ID = {0}",rto.Transection.Car_Branch_ID);
+
+            rto.Car = DatabaseContext.Database.Fetch<dto_carprice>(sqlcar).FirstOrDefault();
+
+            var sqloption = string.Format(@"SELECT t2.*
+                                            FROM tb_transection_detail t1
+                                            INNER JOIN tb_optional t2 on t1.Item_ID = t2.A_ID
+                                            Where t1.Transection = {0}", rto.Transection.ID);
+
+            rto.ExtraOption = DatabaseContext.Database.Fetch<tb_optional>(sqloption).ToList();
 
             return CurrentTemplate(rto);
         }
@@ -168,6 +182,7 @@ namespace ChicCarrental_Controller.Mvc
             rto.TotalCarPrice = (rto.Car?.price.price ?? 0) * rto.NumDate;
 
             var listextra = string.Join(",", param.extra ?? new int[] { 0 });
+
             rto.ExtraOption = DatabaseContext.Database.Fetch<tb_optional>(string.Format("select * from tb_optional where A_ID in ({0})", listextra));
 
             rto.TotalExtra = rto.ExtraOption.Sum(x => x.Price) * rto.NumDate;
@@ -187,7 +202,7 @@ namespace ChicCarrental_Controller.Mvc
 
             if(param.diffpick == "1")
             {
-                transection.PickupCus_ID = GetMemberID(param.pemail, string.Format("{0} {1}", param.pname, param.plname));
+               // transection.PickupCus_ID = GetMemberID(param.pemail, string.Format("{0} {1}", param.pname, param.plname));
             }
 
             DateTime putime = _functional.ConvertTime(param.pickuptime);
@@ -195,12 +210,24 @@ namespace ChicCarrental_Controller.Mvc
 
             transection.PickUpDatetime = _functional.MergeDatetime(pudate, putime);
             transection.DropOffDatetime = _functional.MergeDatetime(dfdate, dftime);
-           
+
+            transection.Car_Branch_ID = rto.Car.A_ID;
             transection.Numdate = rto.NumDate;
-            transection.Status = "0";
-            if(param.pay == "now")
+            transection.Status = "P";
+            transection.Price_ID = rto.Car.price.price_id;
+
+            //transectionid 
+            int lastid = DatabaseContext.Database.ExecuteScalar<int>("select max(id)+1 from tb_transection");
+            DateTime dt = DateTime.Now;
+            transection.Transection_ID = Convert.ToInt32(dt.ToString("HHmmss") + lastid);
+
+            if (param.pay == "now")
             {
-                transection.Payment_Type = "0";
+                transection.Payment_Type = "N";
+            }
+            else
+            {
+                transection.Payment_Type = "L";
             }
            
             rto.PickupBranch = DatabaseContext.Database.Fetch<tb_branch>(string.Format("select * from tb_branch where A_ID = {0}", param.pickuploc)).FirstOrDefault();
@@ -209,10 +236,9 @@ namespace ChicCarrental_Controller.Mvc
             transection.PickUpLoc = rto.PickupBranch.A_ID;
             transection.DropOffLoc = rto.DropoffBranch.A_ID;
 
-            transection.Car_Branch_ID = rto.Car.Car_Branch_ID;
-
-            transection.Sum_Price = rto.TotalPrice;
             transection.Total_Price = rto.TotalPrice;
+            transection.Vat_Total = rto.TotalPrice * 0.07M;
+            transection.Sub_Total = transection.Total_Price - transection.Vat_Total;
 
             DatabaseContext.Database.Save(transection);
 
@@ -233,8 +259,7 @@ namespace ChicCarrental_Controller.Mvc
                                             , param.license[i]
                                             );
                 cus.Customer_Type = string.Format("Driver #{0}", i+1);
-                DatabaseContext.Database.Save(cus);
-                
+                DatabaseContext.Database.Save(cus);          
             }
 
             if (param.diffpick == "1")
@@ -251,8 +276,10 @@ namespace ChicCarrental_Controller.Mvc
                 var detail = new tb_transection_detail();
                 detail.Transection = rto.Transection_ID;
                 detail.Item_ID = item.A_ID;
-                detail.Item_Name = item.Name;
                 detail.Item_Price = item.Price;
+                detail.Total = item.Price * rto.NumDate;
+                detail.Vat_Total = detail.Total * 0.07M;
+                detail.Sub_Total = detail.Total - detail.Vat_Total;
                 detail.Item_Type = "E";
                 DatabaseContext.Database.Save(detail);
             }

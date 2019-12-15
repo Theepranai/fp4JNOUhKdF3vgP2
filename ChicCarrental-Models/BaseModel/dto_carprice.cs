@@ -32,6 +32,12 @@ namespace ChicCarrental_Models.BaseModel
 
         public int image { get; set; }
 
+        public string brand { get; set; }
+
+        public string vgroup { get; set; }
+
+        public string sipp { get; set; }
+
         public string name { get; set; }
 
         public string feature { get; set; }

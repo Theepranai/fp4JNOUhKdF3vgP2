@@ -18,7 +18,7 @@ namespace ChicCarrental_Controller.Service
                                       from tb_car_price 
                                       where car_branch_id = {0} 
                                             and ( '{1}' between isnull(start_date,'{1}') and isnull(end_date,'{2}') )
-                                            and numdate <= {3}
+                                            and numdate <= {3} and status = 'A'
                                       order by isnull(datediff(day, '{1}', start_date),99),numdate desc"
                                     , carid
                                     , stdate

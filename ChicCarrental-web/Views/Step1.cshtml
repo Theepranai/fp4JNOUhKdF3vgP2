@@ -4,10 +4,9 @@
 }
 @section styles{
     <link href="/updates/update1/css/style01.css" rel="stylesheet" media="screen">
-
     <link rel="stylesheet" href="plugins/jslider/css/jslider.css" type="text/css">
     <link rel="stylesheet" href="plugins/jslider/css/jslider.round.css" type="text/css">
-
+    <link href="/plugins/lightbox/css/lightbox.min.css" rel="stylesheet" />
     <script type="text/javascript" src="plugins/jslider/js/jshashtable-2.1_src.js"></script>
     <script type="text/javascript" src="plugins/jslider/js/jquery.numberformatter-1.2.3.js"></script>
     <script type="text/javascript" src="plugins/jslider/js/tmpl.js"></script>
@@ -230,19 +229,19 @@
 
             <!-- Price range -->
             @*<button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse2">
-                Price range <span class="collapsearrow"></span>
-            </button>
+                    Price range <span class="collapsearrow"></span>
+                </button>
 
-            <div id="collapse2" class="collapse in">
-                <div class="padding20">
-                    <div class="layout-slider wh100percent">
-                        <span class="cstyle09"><input id="Slider1" type="slider" name="price" value="400;700" /></span>
+                <div id="collapse2" class="collapse in">
+                    <div class="padding20">
+                        <div class="layout-slider wh100percent">
+                            <span class="cstyle09"><input id="Slider1" type="slider" name="price" value="400;700" /></span>
+                        </div>
+                        <script type="text/javascript">
+                            jQuery("#Slider1").slider({ from: 100, to: 1000, step: 5, smooth: true, round: 0, dimension: "&nbsp;$", skin: "round" });
+                        </script>
                     </div>
-                    <script type="text/javascript">
-                        jQuery("#Slider1").slider({ from: 100, to: 1000, step: 5, smooth: true, round: 0, dimension: "&nbsp;$", skin: "round" });
-                    </script>
-                </div>
-            </div>*@
+                </div>*@
             <!-- End of Price range -->
 
             <div class="line2"></div>
@@ -251,64 +250,46 @@
             <button type="button" class="collapsebtn last" data-toggle="collapse" data-target="#collapse3">
                 Car type <span class="collapsearrow"></span>
             </button>
+
             <div id="collapse3" class="collapse in">
                 <div class="hpadding20">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox">Economy
+                            <input type="checkbox" class="carsize" value="ECAR">Economy
                         </label>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox">Compact
+                            <input type="checkbox" class="carsize" value="MCAR">Compact
                         </label>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox">Midsize
+                            <input type="checkbox" class="carsize" value="CGAR">Compact Coss Over
                         </label>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox">Standard
+                            <input type="checkbox" class="carsize" value="IGAR">Midsize Coss Over
                         </label>
                     </div>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox">Fullsize
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">Premium
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">Luxury
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">Convertible
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">Minivan
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">Sport Utility Vehicles
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox">Sport cars
+                            <input type="checkbox" class="carsize" value="ICAR">Standard
                         </label>
                     </div>
 
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" class="carsize" value="FCAR">Fullsize
+                        </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" class="carsize" value="FFAR">Fullsize SUV
+                        </label>
+                    </div>
 
                 </div>
                 <div class="clearfix"></div>
@@ -317,15 +298,9 @@
 
             <div class="line2"></div>
 
-
-
             <div class="line2"></div>
             <div class="clearfix"></div>
             <br />
-            <br />
-            <br />
-
-
         </div>
         <!-- END OF FILTERS -->
         <!-- LIST CONTENT-->
@@ -339,51 +314,33 @@
                         <div class="left mt7"><b>Sort by:</b></div>
 
                         <div class="right wh70percent">
-                            <select class="form-control mySelectBoxClass ">
-                                <option selected>Manufacturer</option>
-                                <option>Audi</option>
-                                <option>BMW</option>
-                                <option>Mazda</option>
-                                <option>Lamborghini</option>
-                                <option>Porsche</option>
-                                <option>Volkswagen</option>
-                                <option>...</option>
+                            <select class="form-control mySelectBoxClass bandsort">
+                                <option selected disabled>Car size</option>
+                                <option value="S">Small</option>
+                                <option value="M">Medium</option>
+                                <option value="L">Large</option>
                             </select>
                         </div>
 
                     </div>
                     <div class="col-md-4">
-                        <div class="w50percent">
-                            <div class="wh90percent">
-                                <select class="form-control mySelectBoxClass ">
-                                    <option selected>Automatic</option>
-                                    <option>Manual</option>
-                                    <option>CVT (Continuous variable transmission)</option>
-                                    <option>Semi automatic</option>
-                                    <option>TipTronic® gearbox</option>
-                                    <option>DSG (Direct shift gearbox)</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="w50percentlast">
-                            <div class="wh90percent">
-                                <select class="form-control mySelectBoxClass ">
-                                    <option selected>Price</option>
-                                    <option>Ascending</option>
-                                    <option>Descending</option>
-                                </select>
-                            </div>
+                        <div class="wh90percent">
+                            <select class="form-control mySelectBoxClass gearsort">
+                                <option selected disabled>Tranmission</option>
+                                <option value="Automatic">Automatic</option>
+                                <option value="Manual">Manual</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-4 offset-0">
                         <div class="wh50percent left">
-                            <select class="form-control mySelectBoxClass ">
-                                <option selected>Fuel type</option>
-                                <option>Diesel</option>
-                                <option>Petrol</option>
-                                <option>Hibrid</option>
-                                <option>Electric</option>
-                            </select>
+                            <div class="wh90percent">
+                                <select class="form-control mySelectBoxClass pricesort">
+                                    <option selected disabled>Price</option>
+                                    <option value="asc">Ascending</option>
+                                    <option value="desc">Descending</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="right">
                             <button class="gridbtn active btn-view" data-val="grid-view">&nbsp;</button>
@@ -409,7 +366,7 @@
                         row++;
                         var Image = Umbraco.Media(c.image);
 
-                        <div class="col-md-4">
+                        <div class="col-md-4 carbox" data-price="@c.price.price" data-brand="@c.brand" data-size="@c.vgroup" data-ctype="@c.sipp" data-gear="@c.tranmission" style="margin-bottom:20px">
                             <form method="post" action="/booking/step2">
                                 <!-- CONTAINER-->
                                 <input type="hidden" name="pickuploc" value="@Request["pickuploc"]" />
@@ -422,7 +379,7 @@
                                 <input type="hidden" name="price_id" value="@c.price.price_id" />
                                 <div class="carscontainer">
                                     <div class="center" style="height:250px">
-                                        <a href=""><img src="@Image.Url" class="img-responsive" alt="" /></a>
+                                        <a href="@Image.Url" data-lightbox="image-1" data-title="@c.name"><img src="@Image.Url" class="img-responsive" alt="" /></a>
                                     </div>
                                     <div class="hpadding20" style="height:100px">
                                         <span class="glyphicon glyphicon-info-sign right lblue cpointer popover" rel="popover" data-content="This field is mandatory" data-original-title="Here you can add additional information about the car"></span>
@@ -443,20 +400,14 @@
                                 <!-- END OF CONTAINER-->
                             </form>
                         </div>
-
-                        if (row % 3 == 0)
-                        {
-                            <div class="clearfix"></div><br />
-                        }
                     }
                 }
 
 
-                <div class="clearfix"></div>
-                <div class="offset-2"><hr class="featurette-divider3"></div>
-
 
             </div>
+            <div class="clearfix"></div>
+            <div class="offset-2"><hr class="featurette-divider3"></div>
             <!-- End of offset1-->
 
             <div class="itemscontainer offset-1" id="list-view" style="display:none;">
@@ -481,29 +432,29 @@
                                     <div class="listitem2">
                                         <a href="@Image.Url" data-footer="A custom footer text" data-title="A random title" data-gallery="multiimages" data-toggle="lightbox"><img src="@Image.Url" alt=""></a>
                                         @*<div class="liover" style="width: 10%; height: 10%; background-color: rgb(255, 153, 0); position: absolute; top: 105px; left: 135.5px; opacity: 0;"></div>
-                                        <a class="fav-icon" href="#" style="top: 94px; left: 271px;"></a>
-                                        <a class="book-icon" href="details.html" style="top: 94px; left: -25px;"></a>*@
+                                            <a class="fav-icon" href="#" style="top: 94px; left: 271px;"></a>
+                                            <a class="book-icon" href="details.html" style="top: 94px; left: -25px;"></a>*@
                                     </div>
                                 </div>
                                 <div class="col-md-8 offset-0">
                                     <div class="itemlabel3">
                                         <div class="labelright">
                                             @*<img src="/images/filter-rating-5.png" width="60" alt=""><br><br><br>
-                                            <img src="/images/user-rating-5.png" width="60" alt=""><br>
-                                            <span class="size11 grey">18 Reviews</span><br><br>*@
+                                                <img src="/images/user-rating-5.png" width="60" alt=""><br>
+                                                <span class="size11 grey">18 Reviews</span><br><br>*@
                                             <span class="green size18"><b>฿@(c.price.price?.ToString("N2"))</b></span><br>
-                                            <span class="size11 grey">per day(s)</span><br><br><br>                                 
-                                                <button class="bookbtn mt1" type="submit">Book</button>
+                                            <span class="size11 grey">per day(s)</span><br><br><br>
+                                            <button class="bookbtn mt1" type="submit">Book</button>
                                         </div>
                                         <div class="labelleft2">
                                             <b>@c.name</b><br><br><br>
                                             <p class="grey">
                                                 @c.feature
                                             </p><br>
-                                                <ul class="hotelpreferences">
-                                                    <li class="icn-gas"></li>
-                                                    <li class="icn-gear"></li>
-                                                </ul>
+                                            <ul class="hotelpreferences">
+                                                <li class="icn-gas"></li>
+                                                <li class="icn-gear"></li>
+                                            </ul>
 
                                         </div>
                                     </div>
@@ -520,14 +471,14 @@
             <div class="hpadding20">
 
                 @*<ul class="pagination right paddingbtm20">
-                <li class="disabled"><a href="#">&laquo;</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&raquo;</a></li>
-            </ul>*@
+                        <li class="disabled"><a href="#">&laquo;</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>*@
 
             </div>
 
@@ -554,6 +505,7 @@
     <script type="text/javascript" src="plugins/jslider/js/jquery.slider.js"></script>
     <!-- Counter -->
     <script src="assets/js/counter.js"></script>
+    <script src="/plugins/lightbox/js/lightbox.min.js"></script>
     <script>
         jQuery(function (jQuery) {
             jQuery('.countprice').countTo({
@@ -567,6 +519,7 @@
             });
 
             jQuery(".popover").popover({ placement: 'top', trigger: 'hover' });
+
             jQuery('.btn-view').click(function () {
                 jQuery('.btn-view').removeClass('active');
                 jQuery(this).addClass('active');
@@ -574,6 +527,47 @@
                 var view = jQuery(this).attr('data-val');
                 jQuery('#' + view).show();
             })
+
+            //sort
+            jQuery('.pricesort').on('change', function () {
+                var x = jQuery(this).find(":selected").val();
+                if (x == "asc") {
+                    jQuery('#grid-view').each(function () {
+                        var jQuerythis = jQuery(this);
+                        jQuerythis.append(jQuerythis.find('.carbox').get().sort(function (a, b) {
+                            return jQuery(a).data('price') - jQuery(b).data('price');
+                        }));
+                    });
+                } else {
+                    jQuery('#grid-view').each(function () {
+                        var jQuerythis = jQuery(this);
+                        jQuerythis.append(jQuerythis.find('.carbox').get().sort(function (a, b) {
+                            return jQuery(b).data('price') - jQuery(a).data('price');
+                        }));
+                    });
+                }
+            });
+
+            jQuery('.gearsort').on('change', function () {
+                var x = jQuery(this).find(":selected").val();
+                jQuery('.carbox').hide();
+                jQuery('.carbox[data-gear="'+x+'"]').show();
+            });
+
+            jQuery('.bandsort').on('change', function () {
+                var x = jQuery(this).find(":selected").val();
+                jQuery('.carbox').hide();
+                jQuery('.carbox[data-brand="' + x + '"]').show();
+            });
+
+            jQuery('.carsize').on('click', function () {
+                jQuery('.carbox').hide();
+                jQuery(".carsize:checked").each(function () {
+                    var x = jQuery(this).val();
+                    jQuery('.carbox[data-ctype="' + x + '"]').show();
+                });
+            });
+
         });
     </script>
 }

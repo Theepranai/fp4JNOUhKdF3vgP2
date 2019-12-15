@@ -107,27 +107,9 @@
 
                     <br>
                     <br>
-                    <span class="size16px bold dark left">Flight no.?</span>
-                    <div class="roundstep right">2</div>
-                    <div class="clearfix"></div>
-                    <div class="line4"></div>
-                    Flight number to track your arrival.<br>
-
-
-                    <div class="col-md-4 textright">
-                        <div class="mt15"><span class="dark">Flight number:</span><span class="red">*</span></div>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="text" class="form-control margtop10" placeholder="">
-                    </div>
-                    <div class="col-md-4 textleft">
-                    </div>
-                    <div class="clearfix"></div>
-
-                    <br>
-                    <br>
+                    
                     <span class="size16px bold dark left">Review and book your trip</span>
-                    <div class="roundstep right">3</div>
+                    <div class="roundstep right">2</div>
                     <div class="clearfix"></div>
                     <div class="line4"></div>
 
@@ -140,7 +122,7 @@
                         restrictions
                     </a> <a href="#" class="clblue">terms &amp; conditions</a> , and <a href="#" class="clblue">privacy policy</a>.	<br>
 
-                    <button type="submit" class="bluebtn margtop20" name="pay" value="now">Pay now save 30%</button>
+                    <button type="submit" class="bluebtn margtop20" name="pay" value="now">Pay now save @(c.price.paynow_type == "percent" ? "" : "-")@(c.price.paynow?.ToString("N0"))@(c.price.paynow_type == "percent" ? "%" : "")</button>
 
                     <button type="submit" class="greenbtn margtop20" name="pay" value="later">Pay later</button>
                 </div>
@@ -238,15 +220,6 @@
                         <span class="right lred2 bold size18">฿@(Model.TotalPrice.ToString("N2"))</span>
                         <div class="clearfix"></div>
                     </div>
-                </div>
-            </div><br>
-
-            <div class="pagecontainer2 needassistancebox">
-                <div class="cpadding1">
-                    <span class="icon-help"></span>
-                    <h3 class="opensans">Need Assistance?</h3>
-                    <p class="size14 grey">Our team is 24/7 at your service to help you with your booking issues or answer any related questions</p>
-                    <p class="opensans size30 lblue xslim">1-866-599-6674</p>
                 </div>
             </div><br>
 

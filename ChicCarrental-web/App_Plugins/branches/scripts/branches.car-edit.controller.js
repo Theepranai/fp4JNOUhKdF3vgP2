@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 angular.module("umbraco").controller('branches.car-edit.controller',
-    function ($scope, $http, notificationsService) {
+    function ($scope, $http, notificationsService, dialogService) {
 
         $scope.items = {};
         $scope.car = {};
@@ -25,6 +25,7 @@ angular.module("umbraco").controller('branches.car-edit.controller',
                 $http.post("backoffice/branches/branchesapi/caredit/", $scope.model)
                     .then(function successCallback(response) {
                         notificationsService.success("Update Success", "Save");
+                        dialogService.closeAll();
                     }, function errorCallback(response) {
                         notificationsService.error("Error", "Save");
                     });
@@ -32,10 +33,10 @@ angular.module("umbraco").controller('branches.car-edit.controller',
                 $http.put("backoffice/branches/branchesapi/carcreate/", $scope.model)
                     .then(function successCallback(response) {
                         notificationsService.success("Create Success", "Save");
+                        dialogService.closeAll();
                     }, function errorCallback(response) {
                         notificationsService.error("Create Error", "Save");
                     });
             }
         }
-
     });

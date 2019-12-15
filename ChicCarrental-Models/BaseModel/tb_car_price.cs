@@ -28,6 +28,8 @@ namespace ChicCarrental_Models.BaseModel
 
         public string paynow_type { get; set; }
 
+        public string status { get; set; }
+
         public System.Nullable<System.DateTime> add_date { get; set; }
 
         public System.Nullable<System.DateTime> update_date { get; set; }
@@ -35,6 +37,8 @@ namespace ChicCarrental_Models.BaseModel
         public string name { get; set; }
 
         public string Branch_Name { get; set; }
+
+        public int Branch_ID { get; set; }
 
     }
 }

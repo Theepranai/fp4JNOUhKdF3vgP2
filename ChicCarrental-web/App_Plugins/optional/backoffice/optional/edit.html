@@ -1,0 +1,66 @@
+﻿<div ng-controller="optional.controller">
+
+    <umb-load-indicator></umb-load-indicator>
+
+    <form name="contentForm"
+          ng-submit="save()"
+          novalidate
+          val-form-manager>
+
+        <umb-editor-view>
+
+            <umb-editor-header menu="data.Name"
+                               name="data.Name"
+                               hide-icon="true"
+                               hide-description="true"
+                               hide-alias="true">
+            </umb-editor-header>
+
+            <umb-editor-container class="form-horizontal">
+
+                <umb-control-group label="GroupName">
+                    <input type="text" class="umb-editor umb-textstring" ng-model="data.GroupName" />
+                </umb-control-group>
+
+                <umb-control-group label="Teaser">
+                    <umb-text-editor ng-model="data.Teaser" />
+                </umb-control-group>
+
+                <umb-control-group label="Price">
+                    <input type="text" class="umb-editor umb-textstring" ng-model="data.Price" />
+                </umb-control-group>
+
+                <umb-control-group label="Status">
+                    <select ng-model="data.Status" required>
+                        <option value="A" selected>Active</option>
+                        <option value="U">Unactive</option>
+                    </select>
+                </umb-control-group>
+
+                <umb-control-group>
+                    <p>Add Date  : {{ data.Add_Date  | date:'yyyy-MM-dd' }}</p>
+                    <p>Updated Date : {{ data.Update_Date  | date:'yyyy-MM-dd' }}</p>
+                </umb-control-group>
+
+            </umb-editor-container>
+
+            <umb-editor-footer>
+
+                <umb-editor-footer-content-right>
+
+                    <umb-button type="submit"
+                                button-style="success"
+                                state="page.saveButtonState"
+                                shortcut="ctrl+s"
+                                label="Save"
+                                label-key="buttons_save">
+                    </umb-button>
+
+                </umb-editor-footer-content-right>
+
+            </umb-editor-footer>
+
+        </umb-editor-view>
+
+    </form>
+</div>

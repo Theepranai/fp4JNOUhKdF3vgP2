@@ -1,6 +1,6 @@
 ﻿<div ng-controller="branches.car.controller">
 
-    <umb-load-indicator ng-if="loading"></umb-load-indicator>
+    
 
     <form name="contentForm"
           ng-submit="save()"
@@ -8,6 +8,8 @@
           val-form-manager>
 
         <umb-editor-view>
+
+            <umb-load-indicator ng-show="loading"></umb-load-indicator>
 
             <umb-editor-header name="items[0].Branch_Name"
                                name-locked="true"
@@ -23,7 +25,8 @@
                         <tr>
                             <th class="firstCol"><a ng-click="data.sortBy('A_ID')">#</a></th>
                             <th class="big-col"><a ng-click="data.sortBy('name')">Name</a></th>
-                            <th class="small-col"></th>
+                            <th><a ng-click="data.sortBy('Quantity')">Quantity</a></th>
+                            <th><a ng-click="data.sortBy('Status')">Status</a></th>
                             <th class="small-col"></th>
                         </tr>
                     </thead>
@@ -31,8 +34,15 @@
                         <tr ng-repeat="item in items">
                             <td>{{ item.A_ID }}</td>
                             <td>{{ item.name }}</td>
-                            <td><a ng-click="openEditDialog(item)">Edit</a></td>
-                            <td><a ng-href="#/branches/branches/car-price/{{item.A_ID}}">Price</a></td>
+                            <td>{{ item.Quantity }}</td>
+                            <td>
+                                <i class="icon-check color-green medium" ng-if="item.Status == 'A'"></i>
+                                <i class="icon-wrong color-red medium" ng-if="item.Status == 'U'"></i>
+                            </td>
+                            <td>
+                                <a class="btn" ng-click="openEditDialog(item)">Edit</a>
+                                <a class="btn" ng-href="#/branches/branches/car-price/{{item.A_ID}}">Price</a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -42,9 +52,8 @@
             <umb-editor-footer>
 
                 <umb-editor-footer-content-right>
-
-                    <button class="umb-era-button -green" type="button" ng-click="openEditDialog(addnew)">Add new</button>
-
+                    <a class="btn btn-adn" ng-click="fristload()">Refresh</a>
+                    <button class="btn btn-success" type="button" ng-click="openEditDialog(addnew)">Add new</button>
                 </umb-editor-footer-content-right>
 
             </umb-editor-footer>
