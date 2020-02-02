@@ -20,5 +20,16 @@ namespace ChicCarrental_Models.BaseModel
 
         public string Status { get; set; }
 
+        //
+        public string Item_Type { get; set; }
+
+        public System.Nullable<decimal> Item_Price { get; set; }
+
+        public decimal Sub_Total { get; set; }
+
+        public decimal Vat_Total { get; set; }
+
+        public decimal Total { get; set; }
+
     }
 }

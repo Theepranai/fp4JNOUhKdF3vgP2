@@ -293,9 +293,12 @@
     </Content>
     <Content Include="App_Plugins\optional\scripts\optional.controller.js" />
     <Content Include="App_Plugins\Terratype\Scripts\terratype.js" />
+    <Content Include="App_Plugins\Transections\backoffice\Transections\list.html" />
+    <Content Include="App_Plugins\Transections\dashboard.html" />
     <Content Include="App_Plugins\Transections\lang\en-us.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="App_Plugins\Transections\scripts\transection.controller.js" />
     <Content Include="assets\css\custom.css" />
     <Content Include="assets\css\dashboard.css" />
     <Content Include="assets\css\docs.css" />
@@ -1926,6 +1929,7 @@
     <Content Include="App_Plugins\Directives\package.manifest" />
     <Content Include="App_Plugins\cars\package.manifest" />
     <Content Include="App_Plugins\optional\package.manifest" />
+    <Content Include="App_Plugins\Transections\package.manifest" />
     <None Include="bundleconfig.json" />
     <Content Include="dist\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="dist\fonts\glyphicons-halflings-regular.ttf" />
@@ -2196,6 +2200,7 @@
   <ItemGroup>
     <Folder Include="App_Started\" />
     <Folder Include="assets\css\images\" />
+    <Folder Include="Controller\" />
     <Folder Include="Views\Partials\ItemList\" />
   </ItemGroup>
   <PropertyGroup>

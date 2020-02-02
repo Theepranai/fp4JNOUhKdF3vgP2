@@ -1,0 +1,162 @@
+﻿<div ng-controller="transection.controller">
+    <form name="contentForm"
+          ng-submit="save()"
+          novalidate
+          val-form-manager>
+
+        <umb-editor-view>
+
+            <umb-load-indicator ng-show="loading"></umb-load-indicator>
+
+            <umb-editor-header name="name"
+                               name-locked="true"
+                               hide-icon="true"
+                               hide-description="true"
+                               hide-alias="true">
+            </umb-editor-header>
+
+            <umb-editor-container class="form-horizontal">
+
+                <div ng-hide="detail">
+                    <table class="table table-striped" cellspacing="0" cellpadding="5">
+                        <thead>
+                            <tr>
+                                <th><a ng-click="data.sortBy('Transection_ID')">Transection_ID</a></th>
+                                <th><a ng-click="data.sortBy('Payment_Ref')">Payment_Ref</a></th>
+                                <th><a ng-click="data.sortBy('Branch_name')">Branch_name</a></th>
+                                <th><a ng-click="data.sortBy('Car_name')">Car_name</a></th>
+                                <th><a ng-click="data.sortBy('PickUpDatetime')">PickUpDatetime</a></th>
+                                <th><a ng-click="data.sortBy('DropOffDatetime')">DropOffDatetime</a></th>
+                                <th><a ng-click="data.sortBy('Numdate')">Numdate</a></th>
+                                <th><a ng-click="data.sortBy('Sub_Total')">Sub_Total</a></th>
+                                <th><a ng-click="data.sortBy('Vat_Total')">Vat_Total</a></th>
+                                <th><a ng-click="data.sortBy('Total_Price')">Total_Price</a></th>
+                                <th class="small-col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in items">
+                                <td>{{ item.Transection_ID }}</td>
+                                <td>{{ item.Payment_Ref }}</td>
+                                <td>{{ item.Branch_name }}</td>
+                                <td>{{ item.Car_name }}</td>
+                                <td>{{ item.PickUpDatetime | date:'yyyy-MM-dd HH:mm a'}}</td>
+                                <td>{{ item.DropOffDatetime | date:'yyyy-MM-dd HH:mm a'}}</td>
+                                <td>{{ item.Numdate }}</td>
+                                <td>{{ item.Sub_Total | number: 2}}</td>
+                                <td>{{ item.Vat_Total | number: 2}}</td>
+                                <td>{{ item.Total_Price | number: 2}}</td>
+                                <td>
+                                    <a class="btn" ng-click="showdetail(item.ID)">Detail</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div ng-show="detail">
+                    <table border="0" width="100%" cellspacing="5" cellpadding="5">
+                        <tbody>
+                            <tr>
+                                <td width="50%">
+                                    <div><img style="width: 123px; height: 54px;" src="/media/1031/logo_eng.png?width=123&amp;height=54&amp;mode=max" alt="" data-udi="umb://media/fff19e9c6e094339ac76d107435b4d8c" /></div>
+                                    <div><br /></div>
+                                    <div>{{transection.customer.Name}} {{customer.LName}}<br /><br /></div>
+                                    <div>
+                                        <strong>EMAIL :</strong> {{transection.customer.Email}}
+                                        <br /><strong>MOBILE NO : </strong>{{transection.customer.Phone}}
+                                    </div>
+                                </td>
+                                <td width="50%">
+                                    <p><strong>CREATE DATE: </strong> {{transection.Add_Date | date:'yyyy-MM-dd'}}</p>
+                                    <p><strong>PRICE CODE : </strong> {{transection.car_price.price_code}}</p>
+                                    <p>
+                                        <strong>STATUS : </strong>
+                                        <span ng-show="transection.Status=='A'">Complete</span>
+                                        <span ng-show="transection.Status=='P'">Pending</span>
+                                    </p>
+                                    <p>
+                                        <strong>PAYMENT TYPE : </strong>
+                                        <span ng-show="transection.Payment_Type=='N'">Online</span>
+                                        <span ng-show="transection.Payment_Type=='L'">At counter</span>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PLEASE RECHECK YOUR BOOKING DETAILS.</td>
+                                <td> </td>
+                            </tr>
+                            <tr>
+                                <td><strong>RESERVATION DETAIL</strong></td>
+                                <td><strong>RESERVATION NO</strong> : #{{transection.Payment_Type}}{{transection.Transection_ID}}</td>
+                            </tr>
+                            <tr>
+                                <td>PICK UP : {{transection.PickUpDatetime | date:'yyyy-MM-dd'}} AT {{transection.pickuplocation.Branch_Name}} </td>
+                                <td> </td>
+                            </tr>
+                            <tr>
+                                <td>RETURN : {{transection.DropOffDatetime | date:'yyyy-MM-dd'}} AT {{transection.dropofflocation.Branch_Name}}</td>
+                                <td> </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <table border="0" width="100%">
+                                        <tr>
+                                            <td width="50%"><b>Description</b></td>
+                                            <td><b>Rate</b></td>
+                                            <td><b>Day(s)</b></td>
+                                            <td><b>Total</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{transection.car.name}}</td>
+                                            <td>{{transection.car_price.price - (transection.car_price.price * 0.07 ) | number : 2}}</td>
+                                            <td>{{transection.Numdate}}</td>
+                                            <td>{{(transection.car_price.price - (transection.car_price.price * 0.07 )) * transection.Numdate | number : 2 }}</td>
+                                        </tr>
+                                        <tr ng-repeat="item in transection.optional">
+                                            <td>{{item.Name}}</td>
+                                            <td>{{item.Item_Price - (item.Item_Price * 0.07 ) | number : 2}}</td>
+                                            <td>{{transection.Numdate}}</td>
+                                            <td>{{item.Sub_Total | number : 2 }}</td>
+                                        </tr>
+
+                                    </table>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;"><strong>Discount: </strong></td>
+                                <td>{{transection.Discount_Total | number : 2}}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;"><strong>Sub total: </strong></td>
+                                <td>{{transection.Sub_Total | number : 2}}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;"><strong>Taxes &amp; fees: <br /></strong></td>
+                                <td>{{transection.Vat_Total | number : 2}}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;"><strong>Grand total:</strong> <strong><br /></strong></td>
+                                <td>{{transection.Total_Price | number : 2}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </umb-editor-container>
+
+            <umb-editor-footer>
+
+                <umb-editor-footer-content-right>
+                    <a class="btn btn-adn" ng-hide="detail" ng-click="fristload()">Refresh</a>
+                    <a class="btn btn-info" ng-show="detail" ng-click="fristload()">Back</a>
+                </umb-editor-footer-content-right>
+
+            </umb-editor-footer>
+
+        </umb-editor-view>
+
+    </form>
+
+    
+</div>

@@ -81,7 +81,7 @@
     var merchant_id = "JT01";
     var secret_key = "7jYcp4FxFdf0";
 
-    var payment_description = Model.Car.name + " x " + trans.Numdate +" Day(s)";
+    var payment_description = Model.Car.name + " x " + trans.Numdate + " Day(s)";
     var order_id = Convert.ToInt32(string.Format("10{0}", trans.ID.ToString("D8")));
     var currency = "764";
     var amonutx = Convert.ToInt32(trans.Total_Price.ToString().Replace(".", ""));
@@ -89,7 +89,7 @@
 
     var version = "7.2";
     var payment_url = "https://demo2.2c2p.com/2C2PFrontEnd/RedirectV3/payment";
-    var result_url_1 = string.Format("http://"+Request.Url.Host+"/booking/result?result={0}&payment=2c2p", trans.ID);
+    var result_url_1 = string.Format("http://" + Request.Url.Host + "/booking/result?result={0}&payment=2c2p", trans.ID);
 
     var hparam = string.Format("{0}{1}{2}{3}{4}{5}{6}", version, merchant_id, payment_description, order_id, currency, amount, result_url_1);
 
@@ -123,95 +123,21 @@
             <div class="col-md-8 pagecontainer2 offset-0">
 
                 <div class="padding30 grey">
-                    <h1>Thank you.</h1>
+                    <h3>Dear value customer,</h3>
+                    <p>
+                        Your booking number is #@trans.Payment_Type@trans.Transection_ID . In parallel, we have emailed the details of your booking to your specified email.
+                    </p>
+                    <p>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If there is any questions or queries, please don not hesitate to contact us at +662-286-6799 or reservations@chiccarrent.com. We are more than happy to assist you with any related concerns. We look forward to serving you soon and wish you have a pleasant trip.
+                    </p>
+                    <p>Regards,</p>
+                    <p><b>Chic Car Rent</b></p>
                 </div>
 
             </div>
 
             <div class="col-md-4">
-                <div class="pagecontainer2 paymentbox grey">
-                    <div class="padding30">
-                        <span class="opensans size13  bold dark">Pickup location</span>
-                        <p>Bangkok Downtown (BK1)</p>
-                        <div class="clearfix pbottom15"></div>
-                        <span class="opensans size13 bold dark">Dropoff location</span>
-                        <p>Bangkok Downtown (BK1)</p>
-                        <div class="clearfix pbottom15"></div>
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13 bold dark">Pick up date</span>
-                                <p>2019-11-24</p>
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13 bold dark">HOUR</span>
-                                <p>10:30 AM</p>
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13 bold dark">Dropoff date</span>
-                                <p>2019-11-26</p>
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13 bold dark">HOUR</span>
-                                <p>10:30 AM</p>
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-                        <div class="line2"></div>
-
-                        <div class="hpadding30 margtop30">
-
-                            <div class="wh30percent left">
-                                <img src="updates/update1/img/cars/car02.jpg" class="fwimg" alt="">
-                            </div>
-
-                            <div class="wh60percent right">
-                                <span class="size16 bold dark"> Brio Amaze 1.2 Auto</span><br>
-                                <span class="size13 bold grey">Honda</span><br>
-                                <div class="fdash mt10"></div><br>
-
-                                <table class="wh100percent size12 bold grey2">
-                                    <tbody>
-                                        <tr>
-                                            <td>2 days</td>
-                                            <td class="textright">THB 110.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Vat</td>
-                                            <td class="textright">THB 7.70</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="fdash mt10"></div><br>
-
-                            </div>
-                            <div class="clearfix"></div>
-
-                            <br>
-
-
-                        </div>
-                        <div class="line3"></div>
-                        <div class="padding30">
-                            <span class="left size14 dark">Total:</span>
-                            <span class="right lred2 bold size18">THB 117.70</span>
-                            <div class="clearfix"></div>
-                        </div>
-
-
-                    </div>
-                </div><br>
+              
 
                 <div class="pagecontainer2 needassistancebox">
                     <div class="cpadding1">
@@ -276,90 +202,7 @@ else if (trans.Status == "P" && trans.Payment_Type == "L")
             </div>
 
             <div class="col-md-4">
-                <div class="pagecontainer2 paymentbox grey">
-                    <div class="padding30">
-                        <span class="opensans size13  bold dark">Pickup location</span>
-                        <p>Bangkok Downtown (BK1)</p>
-                        <div class="clearfix pbottom15"></div>
-                        <span class="opensans size13 bold dark">Dropoff location</span>
-                        <p>Bangkok Downtown (BK1)</p>
-                        <div class="clearfix pbottom15"></div>
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13 bold dark">Pick up date</span>
-                                <p>2019-11-24</p>
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13 bold dark">HOUR</span>
-                                <p>10:30 AM</p>
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-
-                        <div class="w50percent">
-                            <div class="wh90percent textleft">
-                                <span class="opensans size13 bold dark">Dropoff date</span>
-                                <p>2019-11-26</p>
-                            </div>
-                        </div>
-
-                        <div class="w50percentlast">
-                            <div class="wh90percent textleft right">
-                                <span class="opensans size13 bold dark">HOUR</span>
-                                <p>10:30 AM</p>
-                            </div>
-                        </div>
-
-                        <div class="clearfix pbottom15"></div>
-                        <div class="line2"></div>
-
-                        <div class="hpadding30 margtop30">
-
-                            <div class="wh30percent left">
-                                <img src="updates/update1/img/cars/car02.jpg" class="fwimg" alt="">
-                            </div>
-
-                            <div class="wh60percent right">
-                                <span class="size16 bold dark"> Brio Amaze 1.2 Auto</span><br>
-                                <span class="size13 bold grey">Honda</span><br>
-                                <div class="fdash mt10"></div><br>
-
-                                <table class="wh100percent size12 bold grey2">
-                                    <tbody>
-                                        <tr>
-                                            <td>2 days</td>
-                                            <td class="textright">THB 110.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Vat</td>
-                                            <td class="textright">THB 7.70</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="fdash mt10"></div><br>
-
-                            </div>
-                            <div class="clearfix"></div>
-
-                            <br>
-
-
-                        </div>
-                        <div class="line3"></div>
-                        <div class="padding30">
-                            <span class="left size14 dark">Total:</span>
-                            <span class="right lred2 bold size18">THB 117.70</span>
-                            <div class="clearfix"></div>
-                        </div>
-
-
-                    </div>
-                </div><br>
-
+              
                 <div class="pagecontainer2 needassistancebox">
                     <div class="cpadding1">
                         <span class="icon-help"></span>
@@ -367,7 +210,7 @@ else if (trans.Status == "P" && trans.Payment_Type == "L")
                         <p class="size14 grey">Our team is 24/7 at your service to help you with your booking issues or answer any related questions</p>
                         <p class="opensans size30 lblue xslim">1-866-599-6674</p>
                     </div>
-                </div>
+                </div><br />
 
                 <div class="pagecontainer2 loginbox">
                     <div class="cpadding1">

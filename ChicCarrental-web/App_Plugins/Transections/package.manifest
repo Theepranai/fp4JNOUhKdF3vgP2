@@ -1,0 +1,8 @@
+﻿{
+    javascript: [
+        "/App_Plugins/Transections/scripts/transection.controller.js",
+    ],
+    css: [
+
+    ]
+}

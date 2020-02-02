@@ -70,6 +70,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\CustomerApiController.cs" />
     <Compile Include="Api\BookingApiController.cs" />
     <Compile Include="Mvc\BookingController.cs" />
     <Compile Include="Mvc\HomeController.cs" />

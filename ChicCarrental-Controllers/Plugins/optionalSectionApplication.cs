@@ -23,14 +23,20 @@ namespace ChicCarrental_Controller.Plugins
         {
             var nodes = new TreeNodeCollection();
             var query = @"Select * From tb_optional";
-            var x = DatabaseContext.Database.Query<tb_optional>(query, new
-            {
-                id
-            });
+            var x = DatabaseContext.Database.Query<tb_optional>(query);
+
             var IconNode = "icon-check";
+
             foreach (var thing in x)
             {
+                if (thing.Status == "U"){
+                    IconNode = "icon-wrong";
+                } else {
+                    IconNode = "icon-check";
+                };
+
                 var node = CreateTreeNode(thing.A_ID.ToString(), id, queryStrings, thing.Name, IconNode, false);
+
                 nodes.Add(node);
             }
             return nodes;

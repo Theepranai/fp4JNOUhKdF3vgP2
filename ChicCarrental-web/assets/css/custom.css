@@ -204,7 +204,7 @@ background:url('../../rs-plugin/assets/slider-bg.png') #333 scroll center center
 }
 .sliderbg2{
 position:fixed; 
-background:url('../../images/bg.jpg') #ff9900 scroll center -50px no-repeat;
+background:#ffff00 scroll center -50px no-repeat;
 Width:100%; height:720px; 
 }
 

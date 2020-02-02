@@ -48,6 +48,8 @@ namespace ChicCarrental_Models.BaseModel
 
         public string Status { get; set; }
 
+        public int Sendmail { get; set; }
+
         public System.DateTime Add_Date { get; set; } = DateTime.Now;
 
         public System.DateTime Update_Date { get; set; } = DateTime.Now;

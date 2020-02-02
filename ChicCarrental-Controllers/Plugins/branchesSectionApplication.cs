@@ -11,6 +11,8 @@ using System.Linq;
 using Umbraco.Web.Editors;
 using System.Web.Http;
 using System.Collections.Generic;
+using ChicCarrental_Controller.Service;
+using System;
 
 namespace ChicCarrental_Controller.Plugins
 {
@@ -117,13 +119,21 @@ namespace ChicCarrental_Controller.Plugins
         [HttpGet]
         public object car(int id)
         {
+            CarService _carService = new CarService();
+
             var query = string.Format(@"select t1.*,t2.name,t3.Branch_Name
                                         from tb_branch_car t1 
                                         inner join tb_car t2 on t1.Car_ID = t2.id
                                         inner join tb_branch t3 on t1.Branch_ID = t3.A_ID
-                                        where t1.Branch_ID = {0} and t1.Status <>'D'", id);
+                                        where t1.Branch_ID = {0} and t1.Status <> 'D';", id);
 
-            return DatabaseContext.Database.Query<dto_carprice>(query).ToList();
+            var listcar = new List<dto_carprice>();
+            listcar = DatabaseContext.Database.Query<dto_carprice>(query).ToList();
+            listcar.ForEach(x => {
+                x.Aviable = x.Quantity - _carService.GetAviable(x.A_ID, DateTime.Now);
+            });
+
+            return listcar;
         }
 
         [HttpPost]

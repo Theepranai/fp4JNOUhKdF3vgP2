@@ -19,7 +19,7 @@ namespace ChicCarrental_Controller.Service
                                       where car_branch_id = {0} 
                                             and ( '{1}' between isnull(start_date,'{1}') and isnull(end_date,'{2}') )
                                             and numdate <= {3} and status = 'A'
-                                      order by isnull(datediff(day, '{1}', start_date),99),numdate desc"
+                                      order by abs(isnull(datediff(day, '{1}', start_date),99)),numdate desc;"
                                     , carid
                                     , stdate
                                     , endate
@@ -39,5 +39,17 @@ namespace ChicCarrental_Controller.Service
             return db.Fetch<tb_car_price>(sql).FirstOrDefault() ?? new tb_car_price();
         }
 
+        public int GetAviable(int carid,DateTime startdate)
+        {
+            var db = ApplicationContext.Current.DatabaseContext.Database;
+            var sql = string.Format(@"select count(*) from tb_transection 
+                                      where Car_Branch_ID = {0} 
+                                        and ('{1}'
+                                             between Convert(date, PickUpDatetime) 
+                                             and Convert(date, DropOffDatetime));"
+                                    ,carid
+                                    ,startdate);
+            return db.ExecuteScalar<int>(sql);
         }
+    }
 }

@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Http;
-using Umbraco.Web.WebApi;
+﻿using Umbraco.Web.WebApi;
 
 namespace ChicCarrental_Controller.Api
 {
-    class BookingApiController : UmbracoApiController
+    public class BookingApiController : UmbracoApiController
     {
-        [HttpGet]
-        [Route("/api/booking")]
+        /// <summary>
+        /// /admin/api/BookingApi/GetTotal
+        /// </summary>
+        /// <returns></returns>
         public decimal GetTotal()
         {
             return (decimal)500;

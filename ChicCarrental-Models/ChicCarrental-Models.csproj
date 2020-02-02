@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseModel\dto_carprice.cs" />
+    <Compile Include="BaseModel\dto_transection.cs" />
     <Compile Include="BaseModel\tb_branch_car.cs" />
     <Compile Include="BaseModel\tb_car.cs" />
     <Compile Include="BaseModel\tb_car_price.cs" />

@@ -26,6 +26,7 @@
                             <th class="firstCol"><a ng-click="data.sortBy('A_ID')">#</a></th>
                             <th class="big-col"><a ng-click="data.sortBy('name')">Name</a></th>
                             <th><a ng-click="data.sortBy('Quantity')">Quantity</a></th>
+                            <th><a ng-click="data.sortBy('Aviable')">Aviable Now</a></th>
                             <th><a ng-click="data.sortBy('Status')">Status</a></th>
                             <th class="small-col"></th>
                         </tr>
@@ -35,6 +36,7 @@
                             <td>{{ item.A_ID }}</td>
                             <td>{{ item.name }}</td>
                             <td>{{ item.Quantity }}</td>
+                            <td>{{ item.Aviable }}</td>
                             <td>
                                 <i class="icon-check color-green medium" ng-if="item.Status == 'A'"></i>
                                 <i class="icon-wrong color-red medium" ng-if="item.Status == 'U'"></i>

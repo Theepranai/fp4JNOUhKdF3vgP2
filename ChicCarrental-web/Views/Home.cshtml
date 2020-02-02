@@ -505,11 +505,6 @@
                                 });
                             });
 
-
-
-
-
-
                         </script>
 
 
@@ -523,130 +518,120 @@
     <div class="deals4">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <div class="lbl">
-                        <a href="list4.html"><img src="images/egypt-thumb.jpg" alt="" class="fwimg" /></a>
-                        <div class="smallblacklabel">Last Minute</div>
-                    </div>
-                    <div class="deal">
-                        <a href="details.html"><img src="images/thumb-img.jpg" alt="" class="dealthumb" /></a>
-                        <div class="dealtitle">
-                            <p><a href="details.html" class="dark">Diana Hotel</a></p>
-                            <img src="images/smallrating-4.png" alt="" class="mt-10" /><span class="size13 grey mt-9">Zakynthos</span>
-                        </div>
-                        <div class="dealprice">
-                            <p class="size12 grey lh2">from<span class="price">$35</span><br />per night</p>
-                        </div>
-                    </div>
-                    <div class="deal">
-                        <a href="details.html"><img src="images/thumb-img.jpg" alt="" class="dealthumb" /></a>
-                        <div class="dealtitle">
-                            <p><a href="details.html" class="dark">Village Inn Studios & Family Apartments</a></p>
-                            <img src="images/smallrating-3.png" alt="" class="mt-10" /><span class="size13 grey mt-9">Zakynthos</span>
-                        </div>
-                        <div class="dealprice">
-                            <p class="size12 grey lh2">from<span class="price">$49</span><br />per night</p>
-                        </div>
-                    </div>
-                    <div class="deal">
-                        <a href="details.html"><img src="images/thumb-img.jpg" alt="" class="dealthumb" /></a>
-                        <div class="dealtitle">
-                            <p><a href="details.html" class="dark">Palatino Hotel</a></p>
-                            <img src="images/smallrating-4.png" alt="" class="mt-10" /><span class="size13 grey mt-9">Zakynthos</span>
-                        </div>
-                        <div class="dealprice">
-                            <p class="size12 grey lh2">from<span class="price">$90</span><br />per night</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- End of first row-->
 
                 <div class="col-md-4">
-                    <div class="lbl">
-                        <a href="list4.html"><img src="images/rome-thumb.jpg" alt="" class="fwimg" /></a>
-                        <div class="smallblacklabel">Early Booking</div>
-                    </div>
-                    <div class="deal">
-                        <a href="details.html"><img src="images/thumb-img.jpg" alt="" class="dealthumb" /></a>
-                        <div class="dealtitle">
-                            <p><a href="details.html" class="dark">Comfort Suites Paradise Island</a></p>
-                            <img src="images/smallrating-4.png" alt="" class="mt-10" /><span class="size13 grey mt-9">Bahamas</span>
+                    @{
+                        var lastminutes = Model.Content.Children.Where(x => x.Name == "Last minute").FirstOrDefault();
+                        var lastminute = lastminutes.Children().RandomOrder().FirstOrDefault();
+                        var image = Umbraco.TypedMedia(lastminute.GetPropertyValue<int>("image"));
+
+                        <div class="lbl">
+                            <a href="@lastminutes.Url"><img src="@(image?.Url)" alt="" class="fwimg" /></a>
+                            <div class="smallblacklabel">Last Minute</div>
                         </div>
-                        <div class="dealprice">
-                            <p class="size12 grey lh2">from<span class="price">$29</span><br />per night</p>
+
+                    }
+                    @foreach (var item in lastminutes.Children())
+                    {
+                        image = Umbraco.TypedMedia(item.GetPropertyValue<int>("image"));
+
+                        <div class="deal">
+                            <a href="@item.Url"><img src="@(image?.Url)" alt="" class="dealthumb" /></a>
+                            <div class="dealtitle">
+                                <p><a href="@item.Url" class="dark">@item.GetPropertyValue("pageTitle")</a></p>
+                                <img src="/images/rating-@(item.GetPropertyValue<int>("ratingStar")).png" alt="" class="mt-10" />
+                                <span class="size13 grey mt-9"> @item.GetPropertyValue("teaser")</span>
+                            </div>
+                            <div class="dealprice">
+                                @*<p class="size12 grey lh2">from<span class="price">$35</span><br />per night</p>*@
+                            </div>
                         </div>
-                    </div>
-                    <div class="deal">
-                        <a href="details.html"><img src="images/thumb-img.jpg" alt="" class="dealthumb" /></a>
-                        <div class="dealtitle">
-                            <p><a href="details.html" class="dark">Barcelo Malaga</a></p>
-                            <img src="images/smallrating-3.png" alt="" class="mt-10" /><span class="size13 grey mt-9">Spain</span>
-                        </div>
-                        <div class="dealprice">
-                            <p class="size12 grey lh2">from<span class="price">$32</span><br />per night</p>
-                        </div>
-                    </div>
-                    <div class="deal">
-                        <a href="details.html"><img src="images/thumb-img.jpg" alt="" class="dealthumb" /></a>
-                        <div class="dealtitle">
-                            <p><a href="details.html" class="dark">Palatino Hotel</a></p>
-                            <img src="images/smallrating-3.png" alt="" class="mt-10" /><span class="size13 grey mt-9">Zakynthos</span>
-                        </div>
-                        <div class="dealprice">
-                            <p class="size12 grey lh2">from<span class="price">$90</span><br />per night</p>
-                        </div>
-                    </div>
+
+                    }
+
                 </div>
-                <!-- End of first row-->
 
                 <div class="col-md-4">
-                    <div class="lbl">
-                        <a href="list4.html"><img src="images/surfer-thumb.jpg" alt="" class="fwimg" /></a>
-                        <div class="smallblacklabel">Hot Deals</div>
-                    </div>
-                    <div class="deal">
-                        <a href="details.html"><img src="images/thumb-img.jpg" alt="" class="dealthumb" /></a>
-                        <div class="dealtitle">
-                            <p><a href="details.html" class="dark">Parayso Hotel And Spa</a></p>
-                            <img src="images/smallrating-4.png" alt="" class="mt-10" /><span class="size13 grey mt-9">Zakynthos</span>
+                    @{
+                        lastminutes = Model.Content.Children.Where(x => x.Name == "Early Booking").FirstOrDefault();
+                        lastminute = lastminutes.Children().RandomOrder().FirstOrDefault();
+                        image = Umbraco.TypedMedia(lastminute.GetPropertyValue<int>("image"));
+
+                        <div class="lbl">
+                            <a href="@lastminutes.Url"><img src="@(image?.Url)" alt="" class="fwimg" /></a>
+                            <div class="smallblacklabel">Early Booking</div>
                         </div>
-                        <div class="dealprice">
-                            <p class="size12 grey lh2">from<span class="price">$49</span><br />per night</p>
+
+                    }
+                    @foreach (var item in lastminutes.Children())
+                    {
+                        image = Umbraco.TypedMedia(item.GetPropertyValue<int>("image"));
+
+                        <div class="deal">
+                            <a href="@item.Url"><img src="@(image?.Url)" alt="" class="dealthumb" /></a>
+                            <div class="dealtitle">
+                                <p><a href="@item.Url" class="dark">@item.GetPropertyValue("pageTitle")</a></p>
+                                <img src="/images/rating-@(item.GetPropertyValue<int>("ratingStar")).png" alt="" class="mt-10" />
+                                <span class="size13 grey mt-9"> @item.GetPropertyValue("teaser")</span>
+                            </div>
+                            <div class="dealprice">
+                                @*<p class="size12 grey lh2">from<span class="price">$35</span><br />per night</p>*@
+                            </div>
                         </div>
-                    </div>
-                    <div class="deal">
-                        <a href="details.html"><img src="images/thumb-img.jpg" alt="" class="dealthumb" /></a>
-                        <div class="dealtitle">
-                            <p><a href="details.html" class="dark">Village Inn Studios & Family Apartments</a></p>
-                            <img src="images/smallrating-3.png" alt="" class="mt-10" /><span class="size13 grey mt-9">Zakynthos</span>
-                        </div>
-                        <div class="dealprice">
-                            <p class="size12 grey lh2">from<span class="price">$79</span><br />per night</p>
-                        </div>
-                    </div>
-                    <div class="deal">
-                        <a href="details.html"><img src="images/thumb-img.jpg" alt="" class="dealthumb" /></a>
-                        <div class="dealtitle">
-                            <p><a href="details.html" class="dark">Diana Hotel</a></p>
-                            <img src="images/smallrating-3.png" alt="" class="mt-10" /><span class="size13 grey mt-9">Zakynthos</span>
-                        </div>
-                        <div class="dealprice">
-                            <p class="size12 grey lh2">from<span class="price">$299</span><br />per night</p>
-                        </div>
-                    </div>
+
+                    }
+
                 </div>
-                <!-- End of first row-->
+
+                <div class="col-md-4">
+                    @{
+                        lastminutes = Model.Content.Children.Where(x => x.Name == "Hot Deals").FirstOrDefault();
+                        lastminute = lastminutes.Children().RandomOrder().FirstOrDefault();
+                        image = Umbraco.TypedMedia(lastminute.GetPropertyValue<int>("image"));
+
+                        <div class="lbl">
+                            <a href="@lastminutes.Url"><img src="@(image?.Url)" alt="" class="fwimg" /></a>
+                            <div class="smallblacklabel">Hot Deals</div>
+                        </div>
+
+                    }
+                    @foreach (var item in lastminutes.Children())
+                    {
+                        image = Umbraco.TypedMedia(item.GetPropertyValue<int>("image"));
+
+                        <div class="deal">
+                            <a href="@item.Url"><img src="@(image?.Url)" alt="" class="dealthumb" /></a>
+                            <div class="dealtitle">
+                                <p><a href="@item.Url" class="dark">@item.GetPropertyValue("pageTitle")</a></p>
+                                <img src="/images/rating-@(item.GetPropertyValue<int>("ratingStar")).png" alt="" class="mt-10" />
+                                <span class="size13 grey mt-9"> @item.GetPropertyValue("teaser")</span>
+                            </div>
+                            <div class="dealprice">
+                                @*<p class="size12 grey lh2">from<span class="price">$35</span><br />per night</p>*@
+                            </div>
+                        </div>
+
+                    }
+
+                </div>
+
             </div>
         </div>
     </div>
 
     <div class="lastminute4">
         <div class="container">
-            <img src="images/rating-4.png" alt="" /><br />
-            LAST MINUTE: <b>Barcelona</b> - 2 nights - Flight+4* Hotel, Dep 27h Aug from $209/person<br />
-            <form action="details.html">
-                <button class="btn iosbtn" type="submit">Read more</button>
-            </form>
+
+            @{
+                var promotions = Model.Content.Children.Where(x => x.Name == "Promotion").FirstOrDefault();
+                var promotion = promotions.Children().RandomOrder().FirstOrDefault();
+                <img src="/images/rating-@(promotion.GetPropertyValue<int>("ratingStar")).png" alt="" /><br />
+                @promotion.GetPropertyValue("excerpt")
+                <form action="@promotion.Url">
+                    <button class="btn iosbtn" type="submit">Read more</button>
+                </form>
+            }
+
         </div>
     </div>
 

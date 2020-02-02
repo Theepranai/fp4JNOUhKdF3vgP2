@@ -47,5 +47,7 @@ namespace ChicCarrental_Models.BaseModel
         public int Car_Branch_ID { get; set; }
 
         public tb_car_price price { get; set; }
+
+        public int Aviable { get; set; }
     }
 }

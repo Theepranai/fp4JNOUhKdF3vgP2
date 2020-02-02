@@ -20,9 +20,11 @@ namespace ChicCarrental_Models.BaseModel
 
         public string Phone { get; set; }
 
+        public string Email { get; set; }
+
         public string License { get; set; }
 
-        public string Status { get; set; } = "1";
+        public string Status { get; set; } = "A";
 
         public System.DateTime Add_Date { get; set; } = DateTime.Now;
 
