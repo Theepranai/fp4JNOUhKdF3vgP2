@@ -2122,21 +2122,13 @@
     <Content Include="Views\MacroPartials\LatestBlogposts.cshtml" />
     <Content Include="Views\Blog.cshtml" />
     <Content Include="Views\Blogpost.cshtml" />
-    <Content Include="Views\Contact.cshtml" />
     <Content Include="Views\ContentPage.cshtml" />
-    <Content Include="Views\Person.cshtml" />
     <Content Include="Views\Partials\CategoryLinks.cshtml" />
     <Content Include="Views\Partials\Navigation\SubNavigation.cshtml" />
     <Content Include="Views\Partials\Navigation\TopNavigation.cshtml" />
     <Content Include="Views\Partials\SectionHeader.cshtml" />
-    <Content Include="Views\Layout.cshtml" />
-    <Content Include="Views\Layout1.cshtml" />
-    <Content Include="Views\Layout2.cshtml" />
-    <Content Include="Views\Layout3.cshtml" />
-    <Content Include="Views\Layout4.cshtml" />
     <Content Include="Views\Banner.cshtml" />
     <Content Include="Views\Banners.cshtml" />
-    <Content Include="Views\Layout5.cshtml" />
     <Content Include="plugins\jslider\img\jslider.round-blue.psd" />
     <Content Include="plugins\jslider\img\jslider.round.psd" />
     <Content Include="plugins\revolution\assets\arrows.psd" />
@@ -2175,7 +2167,6 @@
     <Content Include="Views\Home.cshtml" />
     <Content Include="Views\Master.cshtml" />
     <Content Include="Views\Partials\Footer - Copy.cshtml" />
-    <Content Include="Views\Step2 - 5.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2200,7 +2191,6 @@
   <ItemGroup>
     <Folder Include="App_Started\" />
     <Folder Include="assets\css\images\" />
-    <Folder Include="Controller\" />
     <Folder Include="Views\Partials\ItemList\" />
   </ItemGroup>
   <PropertyGroup>

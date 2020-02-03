@@ -177,6 +177,7 @@ namespace ChicCarrental_Controller.Mvc
             rto.TotalCarPrice = (rto.Car?.price.price ?? 0) * rto.NumDate;
 
             var listextra = string.Join(", ", param.extra ?? new int[] { 0 });
+
             rto.ExtraOption = DatabaseContext.Database.Fetch<tb_optional>(string.Format("select * from tb_optional where A_ID in ({0})", listextra));
             
             rto.TotalExtra = rto.ExtraOption.Sum(x => x.Price) * rto.NumDate;
@@ -300,13 +301,14 @@ namespace ChicCarrental_Controller.Mvc
             var discount = rto.Car.price.paynow ?? 0;
             var totaldiscount = 0M;
 
+            var sendemail = 0;
+
             if (param.pay == "now")
             {
                 transection.Payment_Type = "N";
-
                 if (discounttype == "percent")
                 {
-                    totaldiscount = rto.TotalPrice * (discount / 100);
+                    totaldiscount = rto.TotalCarPrice * (discount / 100);
                     transection.Total_Price = rto.TotalPrice - totaldiscount;
                 }
                 else
@@ -318,6 +320,7 @@ namespace ChicCarrental_Controller.Mvc
             else
             {
                 transection.Payment_Type = "L";
+                sendemail = 1;
             }
 
             transection.Discount_Total = totaldiscount;
@@ -370,7 +373,7 @@ namespace ChicCarrental_Controller.Mvc
                 DatabaseContext.Database.Save(detail);
             }
 
-            return Redirect("/booking/Result/" + rto.Transection_ID + "?sendmail=1");
+            return Redirect("/booking/Result/" + rto.Transection_ID + "?sendmail="+ sendemail);
         }
 
         [HttpPost] //payment status
@@ -499,10 +502,11 @@ namespace ChicCarrental_Controller.Mvc
             textDetail = textDetail.Replace("{pricecode}", price.price_code);
             textDetail = textDetail.Replace("{adddate}", transection.Add_Date.ToString("yyyy-MM-dd hh:mm tt"));
             textDetail = textDetail.Replace("{pickuplocation}", pickuploc.Branch_Name);
+
             var status = transection.Status == "A" ? "Comfirm" : "Pending";
             textDetail = textDetail.Replace("{status}", status);
 
-            var paytype = transection.Payment_Type == "N" ? "Online" : "At counter";//
+            var paytype = transection.Payment_Type == "N" ? "Online" : "At counter";
             textDetail = textDetail.Replace("{paytype}", paytype);
 
             textDetail = textDetail.Replace("{transectionno}", "#"+ transection.Payment_Type+""+ transection.Transection_ID);
@@ -516,26 +520,10 @@ namespace ChicCarrental_Controller.Mvc
             textDetail = textDetail.Replace("{subtotal}", transection.Sub_Total?.ToString("N2"));
             textDetail = textDetail.Replace("{vat}", transection.Vat_Total?.ToString("N2"));
             textDetail = textDetail.Replace("{total}", transection.Total_Price?.ToString("N2"));
-            var totaltext = "";
-            //var totaltext = string.Format(@"<tr>
-            //                      <td></td>
-            //                      <td></td>
-            //                      <td style='text-align: right;'>
-            //                        <b>Sub total: </b><br>
-            //                        <b>Taxes & fees: </b><br>
-            //                        <b>Grand total: </b><br>
-            //                      </td>
-            //                      <td>
-            //                            {0} <br>
-            //                            {1} <br>
-            //                            {2} <br>
-            //                      </td>
-            //                    </tr>"
-            //                 , transection.Sub_Total?.ToString("N2")
-            //                 , transection.Vat_Total?.ToString("N2")
-            //                 , transection.Total_Price?.ToString("N2"));
 
-            var carprice = price.price;//- (price.price * 0.07M);//perday
+            var totaltext = "";
+          
+            var carprice = price.price;
 
             var itemcar = string.Format(@"<tr>
                                   <td>{0}</td>
@@ -551,7 +539,7 @@ namespace ChicCarrental_Controller.Mvc
             var itemoption = "";
             foreach (var op in optional)
             {
-                var opprice = op.Price; //- (op.Price * 0.07M);
+                var opprice = op.Price;
                 itemoption += string.Format(@"<tr>
                                   <td>{0}</td>
                                   <td>{1}</td>
@@ -575,7 +563,9 @@ namespace ChicCarrental_Controller.Mvc
                                  "+ itemoption +@"
                                  "+ totaltext +@"
                             </table>";
+
             textDetail = textDetail.Replace("{detail}", itemdetail);
+
             ViewBag.text = textDetail;
 
             if(sendmail == "1") SendEmail(customer.Email, "Your reservation details.", textDetail);
@@ -583,6 +573,7 @@ namespace ChicCarrental_Controller.Mvc
             if(testmail == "1") return CurrentTemplate(rto);
 
             return Redirect("/booking/step4/" + rto.Transection_ID);
+
         }
 
         public int GetMemberID(string email,string name,string title = "",string fname ="", string lname="", string phone = "", string license ="")

@@ -73,6 +73,7 @@
         }
         return (sbinary);
     }
+
 }
 
 @if (trans.Payment_Type == "N" && trans.Status == "P" && (DateTime.Now - trans.Add_Date).Hours <= 2)
@@ -89,7 +90,7 @@
 
     var version = "7.2";
     var payment_url = "https://demo2.2c2p.com/2C2PFrontEnd/RedirectV3/payment";
-    var result_url_1 = string.Format("http://" + Request.Url.Host + "/booking/result?result={0}&payment=2c2p", trans.ID);
+    var result_url_1 = string.Format("http://" + Request.Url.Host + "/booking/result?id={0}&payment=2c2p", trans.ID);
 
     var hparam = string.Format("{0}{1}{2}{3}{4}{5}{6}", version, merchant_id, payment_description, order_id, currency, amount, result_url_1);
 
@@ -110,10 +111,7 @@
     <script type="text/javascript">
         document.getElementById('myform').submit.click();
     </script>
-}
-@{
 
-    Layout = "Master.cshtml";
 }
 
 @if (trans.Status == "A")

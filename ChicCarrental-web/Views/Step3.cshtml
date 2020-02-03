@@ -210,7 +210,7 @@
                             {
                                 <tr>
                                     <td>@xt.Name</td>
-                                    <td class="textright">@((xt.Price*Model.NumDate).ToString("N2"))</td>
+                                    <td class="textright">@((xt.Price * Model.NumDate).ToString("N2"))</td>
                                 </tr>
                             }
                         </table>
@@ -224,17 +224,13 @@
                         <span class="left size14 dark">Pay Now! :</span>
                         @{ 
                             var discounttype = Model.Car.price.paynow_type;
-                            var discount = Model.Car.price.paynow;
+                            var discount = Model.Car.price.paynow??0;
                             if(discounttype == "percent")
                             {
-                                discount = Model.TotalPrice - (Model.TotalPrice * (discount/100));
-                            }
-                            else
-                            {
-                                discount = Model.TotalPrice - discount;
+                                discount = Model.TotalCarPrice * (discount/100);
                             }
                         }
-                        <span class="right lred2 bold size18">฿@(discount?.ToString("N2"))</span>
+                        <span class="right lred2 bold size18">฿@((Model.TotalPrice - discount).ToString("N2"))</span>
                         <div class="clearfix"></div>
                     </div>
                 </div>
